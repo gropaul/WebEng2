@@ -15,7 +15,8 @@ Entwickeln Sie eine Web-Applikation die innerhalb eines Location-Based-Service e
 | Fahrtrouten                            |                           |
 | Reverse Geocoding und Location Service |                           |
 
-
+## Kommunikation 
+Discord: https://discord.gg/Ve863Wzdnq
 ## Komponenten 
 
 ### Design und Layout
