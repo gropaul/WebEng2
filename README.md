@@ -8,12 +8,12 @@ Entwickeln Sie eine Web-Applikation die innerhalb eines Location-Based-Service e
 
 | Rolle                                  | Ansprechpartner           |
 | -------------------------------------- | ------------------------- |
-| Scrum Master                           | Tobias Bungard, Paul Groß |
-| Design und Layout                      |                           |
-| Kartenkomponete                        |                           |
-| Wikipedia Anbindung                    |                           |
+| Scrum Master                           | Tobias B., Paul G.        |
+| Design und Layout                      | Sebastian R.              |
+| Kartenkomponete                        | Danial R.                 |
+| Wikipedia Anbindung                    | Philipp K.                |
 | Fahrtrouten                            |                           |
-| Reverse Geocoding und Location Service |                           |
+| Reverse Geocoding und Location Service | Sven                      |
 
 ## Kommunikation 
 Discord: https://discord.gg/Ve863Wzdnq
