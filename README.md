@@ -15,6 +15,10 @@ Entwickeln Sie eine Web-Applikation die innerhalb eines Location-Based-Service e
 | Fahrtrouten                            | Niko                       |
 | Reverse Geocoding und Location Service | Sven                      |
 
+## Branching
+
+Jede Gruppe bitte einen Branch für final und einen um zu arbeiten
+ 
 ## Kommunikation 
 Discord: https://discord.gg/Ve863Wzdnq
 ## Komponenten 
