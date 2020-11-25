@@ -10,7 +10,7 @@ Entwickeln Sie eine Web-Applikation die innerhalb eines Location-Based-Service e
 | -------------------------------------- | ------------------------- |
 | Scrum Master                           | Tobias B., Paul G.        |
 | Design und Layout                      | Sebastian R.              |
-| Kartenkomponete                        | Danial R.                 |
+| Kartenkomponete                        | Daniel R.                 |
 | Wikipedia Anbindung                    | Philipp K.                |
 | Fahrtrouten                            | Niko                       |
 | Reverse Geocoding und Location Service | Sven                      |
