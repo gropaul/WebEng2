@@ -12,7 +12,7 @@ Entwickeln Sie eine Web-Applikation die innerhalb eines Location-Based-Service e
 | Design und Layout                      | Sebastian R.              |
 | Kartenkomponete                        | Danial R.                 |
 | Wikipedia Anbindung                    | Philipp K.                |
-| Fahrtrouten                            |                           |
+| Fahrtrouten                            | Niko                       |
 | Reverse Geocoding und Location Service | Sven                      |
 
 ## Kommunikation 
