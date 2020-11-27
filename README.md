@@ -35,6 +35,20 @@ Discord: https://discord.gg/Ve863Wzdnq
 
 #### Schnittstellenbeschreibung
 
+1.	geo2location.js 
+Input: get_location(float lng, float lat)
+Output: String Datenstruktur: json
+Attribute: TODO z.B Straße, Hausnummer, PLZ, Ort, Bezeichnung
+
+2.	location2geo.js
+Input: location2geo(String Datenstruktur: json)
+Attribute: Straße, Hausnummer, Postleitzahl
+
+3.	get_position.js
+Input: get_position()
+Output: float longitude, float latitude
+
+
 ### Wikipedia Anbindung
 
 #### Schnittstellenbeschreibung
