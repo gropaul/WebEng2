@@ -67,7 +67,7 @@ Discord: https://discord.gg/Ve863Wzdnq
 //Not used in this demo
 let mapStateToProps = (state) => {
     return {
-      tasks: state.wikiInfoShown
+      wikiInfoShown: state.wikiInfoShown
     }
 }
 //used in this demo
