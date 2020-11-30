@@ -36,7 +36,46 @@ Discord: https://discord.gg/Ve863Wzdnq
 #### Schnittstellenbeschreibung
 
 ### Wikipedia Anbindung
+ Aufruf der Komponente erfolgt über die Redux - Action: `showWikiInfo(locationName)`
+ Schließen der Komponente erfolgt über die Redux - Action: `closeWikiInfo()`
 
+ Der State `wikiInfoShown` zeigt an, ob die Komponente angezeigt wird oder nicht.
+  `"SHOWN"` = angezeigt, `"NOT_SHOWN"`= nicht angezeigt
+ #### Einbindung in Redux:
+  /actions/index.js:
+  ```javascript
+   export function showWikiInfo(locationName){
+     return {type: "SHOW_WIKI_INFO", locationName: locationName}
+   }
+
+   export function closeWikiInfo(){
+     return {type: "CLOSE_WIKI_INFO"}
+   }
+   ```
+ 
+ /reducers/wikiInfo.js:
+ ```javascript
+  let initialState = {wikiInfoShown: "NOT_SHOWN"};
+
+  function wikiInfo(state = initialState,action){
+	 if (action.type == "SHOW_WIKI_INFO"){
+        state = {wikiInfoShown: "SHOWN"};
+
+        //TODO: Komponente starten und anzeigen
+        return state;
+	 }
+	
+	 if(action.type == "CLOSE_WIKI_INFO"){
+        state = {wikiInfoShown: "NOT_SHOWN"};
+        
+        //TODO: Komponente schließen
+        return state;
+    }  
+    return state;
+  }
+
+  export default wikiInfo;
+  ```
 #### Schnittstellenbeschreibung
 
 ### Routenplaner 
