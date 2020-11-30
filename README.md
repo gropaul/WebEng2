@@ -36,7 +36,7 @@ Discord: https://discord.gg/Ve863Wzdnq
 #### Schnittstellenbeschreibung
 
 ### Wikipedia Anbindung
- Aufruf der Komponente erfolgt über die Redux - Action: `showWikiInfo(locationName)`
+ Aufruf der Komponente erfolgt über die Redux - Action: `showWikiInfo(locationName)`</br>
  Schließen der Komponente erfolgt über die Redux - Action: `closeWikiInfo()`
 
  Der State `wikiInfoShown` zeigt an, ob die Komponente angezeigt wird oder nicht.
