@@ -13,7 +13,7 @@ Verkehrsmittel? Alternative? Start/Endpunkt tauschen
 Schnittstelle wurde definiert:
 Fragen: Wie wirds dargestellt
   
-Notes: 
-Design fragen, layout mitmachen
+### Zu besprechen mit Koch
+Directionslist anzeigen?
+drei Optionen: tabs/popups/overlay Welche will er?
 
-drei Optionen: tabs/popups/overlay 
