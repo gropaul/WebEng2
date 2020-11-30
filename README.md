@@ -41,6 +41,42 @@ Discord: https://discord.gg/Ve863Wzdnq
 
  Der State `wikiInfoShown` zeigt an, ob die Komponente angezeigt wird oder nicht.
   `"SHOWN"` = angezeigt, `"NOT_SHOWN"`= nicht angezeigt
+  
+ #### Beispiel-Aufruf:
+ ```javascript
+ class DemoComponent extends Component {
+
+	constructor(props) {
+		super(props);
+		this.onShowWikiInfo = this.onShowWikiInfo.bind(this);
+	}
+	onShowWikiInfo() {
+		this.props.showWikiInfo("Stuttgart");
+	}
+
+	render() {
+		return (
+            <div>
+                <button onClick={this.onShowWikiInfo}> 
+                    WikiInfo anzeigen
+                </button>
+            </div>
+		)
+	}
+}
+//Not used in this demo
+let mapStateToProps = (state) => {
+    return {
+      tasks: state.wikiInfoShown
+    }
+}
+//used in this demo
+let mapDispatchToProps = {
+    showWikiInfo: showWikiInfo
+}
+let Container = connect(mapStateToProps, mapDispatchToProps)(DemoComponent);
+export default Container;
+ ```
  #### Einbindung in Redux:
   /actions/index.js:
   ```javascript
