@@ -77,6 +77,7 @@ let mapDispatchToProps = {
 let Container = connect(mapStateToProps, mapDispatchToProps)(DemoComponent);
 export default Container;
  ```
+ </br></br>
  #### Einbindung in Redux:
   /actions/index.js:
   ```javascript
