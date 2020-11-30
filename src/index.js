@@ -1,22 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './components/App';
-import TaskList from './components/TaskList';
-import { createStore } from 'redux'
-import { Provider } from 'react-redux';
-import counter from './reducers/index';
 import './index.css';
-
-let store = createStore(counter);
-console.log(store.getState());
+import App from './App';
+import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
-  <Provider store={store}>
-    <div>
-      <h1 className="App">React Redux Training</h1>
-      <App />
-      <TaskList />
-    </div>
-  </Provider>,
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
   document.getElementById('root')
 );
+
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+reportWebVitals();
