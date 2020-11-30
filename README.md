@@ -138,5 +138,21 @@ TOKEN: 5b3ce3597851110001cf6248325551c86d55441f8d7e5d496d06a201
 
 #### Schnittstellenbeschreibung
 
-1. 	Geo-Koordinaten:
+1. 	Geo-Koordinaten: <br>
+	Für die Berechnung der Route sind die Koordinaten von Start- und Endpunkt notwendig. <br>
+	
+2. 	Map Interaktion: <br>
+	Der Startpunkt soll durch das Klicken auf die Map gesetzt werden. Danach wird der Endpunkt durch erneutes klicken auf die Map gesetzt. <br>
+	Außerdem soll es möglich sein Start- und Endpunkt in zwei Textfelder eingeben zu können. <br>
+	Das Setzen des Endpunktes ist der Trigger zur Berechnung der Route. <br>
+	Sobald die Route berechnet wurde, soll die Map die gesamte Route anzeigen/ auf die Route Zoomen. <br>
+	Außerdem soll die Route farblich markiert werden. <br>
+	
+3.	Direction Liste: <br>
+	Falls erwünscht - Anzeigen einer Liste mit der schrittweisen Beschreibung der Route. <br>
+	Dazu benötigt - Form in die das reingeschrieben werden soll. Stellen nur die Set-Methode zur Verfügung zum Reinschreiben der Daten. <br>
+
+
+	
+
 
