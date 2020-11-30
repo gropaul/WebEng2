@@ -35,6 +35,21 @@ Discord: https://discord.gg/Ve863Wzdnq
 
 #### Schnittstellenbeschreibung
 
+1.	geo2location.js <br> 
+Input: get_location(float lng, float lat) <br>
+Output: String Datenstruktur: json <br>
+Attribute: TODO z.B Straße, Hausnummer, PLZ, Ort, Bezeichnung <br>
+
+2.	location2geo.js <br>
+Input: location2geo(String Datenstruktur: json) <br>
+Attribute: Straße, Hausnummer, Postleitzahl <br>
+Output: float longitude, float latitude <br>
+
+3.	get_position.js <br>
+Input: get_position() <br>
+Output: float longitude, float latitude <br>
+
+
 ### Wikipedia Anbindung
  Aufruf der Komponente erfolgt über die Redux - Action: `showWikiInfo(locationName)`</br>
  Schließen der Komponente erfolgt über die Redux - Action: `closeWikiInfo()`
