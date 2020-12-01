@@ -1,0 +1,13 @@
+.header{
+
+}
+
+.header-title{
+    font-size: x-large;
+    font: bold;
+}
+
+.header-subtitle{
+    font-size: small;
+    color: gray;
+}
