@@ -3,24 +3,9 @@ import {Card,CardHeader,CardContent} from 'framework7-react';
 import './wikiInfo.css'
 
 class WikiInfo extends React.Component {
-    render(){
-        return (
-            <Card>
-              <CardHeader className="header">
-                  <div>
-                <div className="header-title">Stuttgart</div>
-                <div className="header-subtitle">Stadt in Baden-Württemberg</div>
-                </div>
-              </CardHeader>
-              <CardContent>
-              Stuttgart ist die Hauptstadt des südwestdeutschen Bundeslands Baden-Württemberg und ein bekannter Produktionsstandort. Sowohl Mercedes-Benzals auch Porsche haben hier ihren Hauptsitz und betreiben eigene Museen.Stuttgart verfügt über zahlreiche Parks, die sich als grüner Gürtel durch die Innenstadt ziehen. Beliebt sind unter anderem der Schlossgarten, der Rosensteinpark und der Park am Killesberg"
-              </CardContent>
-            </Card>
-        );
-    }
 	
 	// Writes the error information to the state
-	function handleError(responseStatus, response) {
+	handleError(responseStatus, response) {
 		this.setState(
 			{
 				"title": "Error :(",
@@ -30,7 +15,8 @@ class WikiInfo extends React.Component {
 		);
 	}
 	
-	async function fetchWikipedia(locationName) {
+	//@Philipp: Bitte dem Project erlauben Quellen von anderen Seiten anzunehmen (Access-Control-Allow-Origin), ansonsten kommen die Antworten von Wikipedia nicht bei uns an
+	fetchWikipedia(locationName) {
 		// Prepare String (Exchange spaces with '%20' and so on...)
 		var locationNamePrepared = locationName.replace(' ', '%20');
 		// Enter "Loading" Information in state
@@ -45,13 +31,16 @@ class WikiInfo extends React.Component {
 		// Step 1: Get title and page URL
 		var requestOptions = {
 			method: 'GET',
-			redirect: 'follow'
+			redirect: 'follow',
+			headers: {
+				'Access-Control-Allow-Origin': '*'
+			}
 		}
 		var pageID = "";
 		var pageTitle = "";
 		var subtitle = "";
 		var content = "";
-		var wikiURL = "http://de.wikipedia.org/w/api.php?action=query&list=search&rsearch=" + locationNamePrepared + "&format=json";
+		var wikiURL = "http://de.wikipedia.org/w/api.php?action=query&list=search&srsearch=" + locationNamePrepared + "&format=json";
 		
 		fetch(wikiURL, requestOptions)
 			.then( response => {
@@ -68,11 +57,15 @@ class WikiInfo extends React.Component {
 						break;
 					//Something went wrong
 					default:
-						handleError(responseStatus, response);
+						this.handleError(responseStatus, response);
 						return;
 				}
-			})
+			});
 		//Step 2: Get description and small extract
+		if (pageID = "") {
+				this.handleError( "Antwort blockiert", "Bitte Antworten von Wikipedia zulassen!");
+				return;
+		}
 		wikiURL = "http://de.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&pageids=" + pageID;
 		fetch(wikiURL, requestOptions)
 			.then( response => {
@@ -85,10 +78,10 @@ class WikiInfo extends React.Component {
 						content = json.query.pages[pageID].extract;
 						break;
 					default:
-						handleError(responseStatus, response);
+						this.handleError(responseStatus, response);
 						return;
 				}
-			})
+			});
 		//Old solution, might be a little bit out of date but is more readable	
 		// Should work definitely as I use this style in other projects as well
 		/*let response = await fetch(wikiURL, requestOptions);
@@ -135,5 +128,22 @@ class WikiInfo extends React.Component {
 		);
 		return;
 	}
+	
+	render(){
+		//this.fetchWikipedia("Ravensburg");
+        return (
+            <Card>
+              <CardHeader className="header">
+                  <div>
+                <div className="header-title">state.title</div>
+                <div className="header-subtitle">state.subtitle</div>
+                </div>
+              </CardHeader>
+              <CardContent>
+              state.content
+              </CardContent>
+            </Card>
+        );
+    }
 }
 export default WikiInfo;
