@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/App';
+import Route from './components/Route'
 import TaskList from './components/TaskList';
 import { createStore } from 'redux'
 import { Provider } from 'react-redux';
@@ -11,12 +12,13 @@ let store = createStore(counter);
 console.log(store.getState());
 
 ReactDOM.render(
-  <Provider store={store}>
-    <div>
-      <h1 className="App">React Redux Training</h1>
-      <App />
-      <TaskList />
-    </div>
-  </Provider>,
-  document.getElementById('root')
+    <Provider store={store}>
+        <div>
+            <h1 className="App">React Redux Training</h1>
+            <App />
+            <TaskList />
+            <Route />
+        </div>
+    </Provider>,
+    document.getElementById('root')
 );
