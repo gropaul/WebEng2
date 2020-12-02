@@ -41,7 +41,7 @@ Output: String Datenstruktur: json <br>
 Attribute: TODO z.B Straße, Hausnummer, PLZ, Ort, Bezeichnung <br>
 
 2.	location2geo.js <br>
-Input: location2geo(String Datenstruktur: json) <br>
+Input: get_geo(String Datenstruktur: json) <br>
 Attribute: Straße, Hausnummer, Postleitzahl <br>
 Output: float longitude, float latitude <br>
 
