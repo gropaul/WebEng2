@@ -38,16 +38,29 @@ Discord: https://discord.gg/Ve863Wzdnq
 1.	geo2location.js <br> 
 Input: get_location(float lng, float lat) <br>
 Output: String Datenstruktur: json <br>
-Attribute: TODO z.B Straße, Hausnummer, PLZ, Ort, Bezeichnung <br>
+Attribute: {
+"house_number": "4",
+"road": "Prielmayerstraße",
+"suburb": "Zeppelindorf",
+"town": "Friedrichshafen",
+"municipality": "Verwaltungsgemeinschaft Friedrichshafen",
+"county": "Bodenseekreis",
+"state": "Baden-Württemberg",
+"postcode": "88045",
+"country": "Germany",
+"country_code": "de"
+} <br>
 
 2.	location2geo.js <br>
-Input: location2geo(String Datenstruktur: json) <br>
+Input: get_geo(String Datenstruktur: json) <br>
 Attribute: Straße, Hausnummer, Postleitzahl <br>
-Output: float longitude, float latitude <br>
+Output: String Datenstruktur: json <br>
+Attribute: { "longitude": lng, "latitude": lat } <br>
 
 3.	get_position.js <br>
 Input: get_position() <br>
-Output: float longitude, float latitude <br>
+Output: String Datenstruktur: json <br>
+Attribute: { "longitude": lng, "latitude": lat } <br>
 
 
 ### Wikipedia Anbindung
