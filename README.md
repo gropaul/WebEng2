@@ -27,8 +27,8 @@ Discord: https://discord.gg/Ve863Wzdnq
 
 ### Karte
 
-Komponente:<br/>Maps<br/>
-Koordinaten:	<br/>latitudeStart
+<b>Komponente:</b><br/>Maps<br/>
+<b>Koordinaten:</b>	<br/>latitudeStart
 		<br/>longitudeStart
 		<br/>latitudeEnd
 		<br/>longitudeEnd<br/>
