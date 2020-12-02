@@ -27,11 +27,11 @@ Discord: https://discord.gg/Ve863Wzdnq
 
 ### Karte
 
-Komponente:	Maps
-Koordinaten:	latitudeStart
-		longitudeStart
-		latitudeEnd
-		longitudeEnd
+Komponente:<br/>Maps<br/>
+Koordinaten:	<br/>latitudeStart
+		<br/>longitudeStart
+		<br/>latitudeEnd
+		<br/>longitudeEnd<br/>
 
 #### Schnittstelle für Marker der Postion des Nutzers
 
