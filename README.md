@@ -27,6 +27,12 @@ Discord: https://discord.gg/Ve863Wzdnq
 
 ### Karte
 
+Komponente:	Maps
+Koordinaten:	latitudeStart
+		longitudeStart
+		latitudeEnd
+		longitudeEnd
+
 #### Schnittstelle für Marker der Postion des Nutzers
 
 #### Schnittstelle für Marker für Wikipediaeinträge
