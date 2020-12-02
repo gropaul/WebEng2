@@ -15,7 +15,7 @@ function geoSuccess(pos) {
 	var lng = coords.longitude;
 	var lat = coords.latitude;
 
-    var return_json = { longitude: lng, latidute: lat };
+    var return_json = { "longitude": lng, "latitude": lat };
 
     //console.log(return_json);
     return return_json;
