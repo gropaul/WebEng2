@@ -9,23 +9,17 @@ class Route extends Component {
 
         this.calcRoute = this.calcRoute.bind(this);
 
-        this.valueStart = {
-            start: "funktioniert noch nicht"
-        }
-        this.valueEnd = {
-            end: "funktioniert noch nicht"
-        }
+		this.state = {
+			startCoordinates: "",
+			endCoordinates: ""
+		}
     }
 
-    onTaskInputChangeStart(event) {
-        this.setState({
-            start: event.target.value
-        })
-    }
-    onTaskInputChangeEnd(event) {
-        this.setState({
-            end: event.target.value
-        })
+    onTaskInputChange(value, name) {
+		var state = this.state;
+		state[name] = value;
+        this.setState(state);
+		console.log(this.state)
     }
 
     calcRoute() {
@@ -49,12 +43,13 @@ class Route extends Component {
                 var response = "";
 
                 for (var i = 0; i < arrayLen; i++) {
-                    response = response + "<p>" + 'in ' + obj.routes[0].segments[0].steps[i].distance + 'm ' + obj.routes[0].segments[0].steps[i].instruction + "</p>";
+                    response = response + "<p> in " + obj.routes[0].segments[0].steps[i].distance + 'm ' + obj.routes[0].segments[0].steps[i].instruction + "</p>";
                 }
                 //response = response.replace(/(\n)/g, '<br>');
                 //response = response.replace(/(\t)/g, '&nbsp;&nbsp;');
                 //node.innerHTML = "<h3>Response</h3><p>" + response + "</p>";
                 //node.innerHTML = response ;
+				console.log(this.state.startCoordinates)
                 console.log(response);
             })
             .catch(function (err) {
@@ -71,17 +66,19 @@ class Route extends Component {
             <div className="Route-calc">
                 <Card title="Navigation">
                     <hi>Navigation:</hi>
-                    <input
+					<input
                         title="Start-Position"
-                        onChange={this.onTaskInputChangeStart}
+                        onChange={e => this.onTaskInputChange(e.target.value, 'startCoordinates')}
                         type="text"
-                        value={this.valueStart.start}
+                        value={this.state.startCoordinates}
+						placeholder="Start Latitude,Longitude"
                     />
                     <input
                         title="End-Position"
-                        onChange={this.onTaskInputChangeEnd}
+                        onChange={e => this.onTaskInputChange(e.target.value, 'endCoordinates')}
                         type="text"
-                        value={this.valueEnd.end}
+                        value={this.state.endCoordinates}
+						placeholder="End Latitude,Longitude"
                     />
                     <br></br>
                     <button
