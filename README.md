@@ -44,6 +44,7 @@ Discord: https://discord.gg/Ve863Wzdnq
 1.	geo2location.js <br> 
 Input: get_location(float lng, float lat) <br>
 Output: String Datenstruktur: json <br>
+
 Attribute: 
 ```json
 {
@@ -60,24 +61,25 @@ Attribute:
 }
 ```
 
-
 2.	location2geo.js <br>
 Input: get_geo(String Datenstruktur: json) <br>
 Attribute: Straße, Hausnummer, Postleitzahl <br>
 Output: String Datenstruktur: json <br>
+
 Attribute: 
 ```json
 { "longitude": "lng", "latitude": "lat" } 
 ```
 
+
 3.	get_position.js <br>
 Input: get_position() <br>
 Output: String Datenstruktur: json <br>
+
 Attribute: 
 ```json
 { "longitude": "lng", "latitude": "lat"}
 ```
-
 
 
 ### Wikipedia Anbindung
