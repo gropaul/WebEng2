@@ -37,26 +37,26 @@ class WikiInfo extends React.Component {
 				return response.json();
 			})
 			.then( json => {
-				switch(responseStatus) {
+				switch (responseStatus) {
 					//Everything is fine
 					case 200:
 						var pageID = json.query.search[0].pageid;
 						var pageTitle = json.query.search[0].title;
 						var subtitle = json.query.search[0].snippet;
-						
+
 						//Step 2: Get description and small extract
 						if (pageID == "") {
-								this.handleError( "Antwort blockiert", "Wikipedia scheint uns nicht zu vertrauen :,( ");
-								return;
+							this.handleError("Es wurde kein passender Inhalt zum Suchbegriff gefunden", "");
+							return;
 						}
 						wikiURL = "http://de.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&pageids=" + pageID + "&origin=*";
 						fetch(wikiURL)
-							.then( response => {
+							.then(response => {
 								responseStatus = response.status;
 								return response.json();
 							})
-							.then( json => {
-								switch(responseStatus) {
+							.then(json => {
+								switch (responseStatus) {
 									case 200:
 										var content = json.query.pages[pageID].extract;
 										console.log("Title: " + pageTitle);
@@ -75,6 +75,9 @@ class WikiInfo extends React.Component {
 										this.handleError(responseStatus, response);
 										return;
 								}
+							})
+							.catch(error => {
+								alert("Es ist ein Fehler aufgetreten beim Abfragen des Seiteninhalts :(")
 							});
 						break;
 					//Something went wrong
@@ -82,6 +85,9 @@ class WikiInfo extends React.Component {
 						this.handleError(responseStatus, response);
 						return;
 				}
+			})
+			.catch(error => {
+				alert("Es ist ein Fehler aufgetreten bei der Suche :(")
 			});
 		return;
 	}
