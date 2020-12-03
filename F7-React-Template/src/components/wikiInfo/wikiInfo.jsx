@@ -1,16 +1,30 @@
 import React from 'react';
-import {Card,CardHeader,CardContent} from 'framework7-react';
+import {Card,CardHeader,CardContent,Preloader} from 'framework7-react';
 import './wikiInfo.css'
 
 class WikiInfo extends React.Component {
 	
+	constructor(props) {
+		super(props);
+		this.state =
+			{
+				dataLoaded: false,
+				title: "",
+				subtitle: "",
+				content: ""
+			}
+		
+		this.fetchWikipedia(props.locationName);
+	}
+
 	// Writes the error information to the state
 	handleError(responseStatus, response) {
 		this.setState(
 			{
-				"title": "Error :(",
-				"subtitle": "Error-Code: " + responseStatus,
-				"content": response
+				dataLoaded: false,
+				title: "Error :(",
+				subtitle: "Error-Code: " + responseStatus,
+				content: response
 			}
 		);
 	}
@@ -21,15 +35,16 @@ class WikiInfo extends React.Component {
 		// Enter "Loading" Information in state
 		this.setState(
 			{
-				"title": "Loading...",
-				"subtitle": "Loading...",
-				"content": "Loading..."
+				dataLoaded: false,
+				title: "",
+				subtitle: "",
+				content: ""
 			}
 		);
 		// Fetch Wikipedia API
 		// Step 1: Get title and page URL
 		var responseStatus = 200;
-		var wikiURL = "http://de.wikipedia.org/w/api.php?action=query&list=search&srsearch=" + locationNamePrepared + "&format=json&origin=*";
+		var wikiURL = "https://de.wikipedia.org/w/api.php?action=query&list=search&srsearch=" + locationNamePrepared + "&format=json&origin=*";
 		
 		fetch(wikiURL)
 			.then( response => {
@@ -46,10 +61,11 @@ class WikiInfo extends React.Component {
 
 						//Step 2: Get description and small extract
 						if (pageID == "") {
+							
 							this.handleError("Es wurde kein passender Inhalt zum Suchbegriff gefunden", "");
 							return;
 						}
-						wikiURL = "http://de.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&pageids=" + pageID + "&origin=*";
+						wikiURL = "https://de.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&pageids=" + pageID + "&origin=*";
 						fetch(wikiURL)
 							.then(response => {
 								responseStatus = response.status;
@@ -65,9 +81,10 @@ class WikiInfo extends React.Component {
 										// Write results to state
 										this.setState(
 											{
-												"title": pageTitle,
-												"subtitle": subtitle,
-												"content": content
+												dataLoaded: true,
+												title: pageTitle,
+												subtitle: subtitle,
+												content: content
 											}
 										);
 										break;
@@ -87,29 +104,38 @@ class WikiInfo extends React.Component {
 				}
 			})
 			.catch(error => {
-				alert("Es ist ein Fehler aufgetreten bei der Suche :(")
+				this.handleError(responseStatus, response);
+				return;
 			});
 		return;
 	}
 	
 	render(){
-		return (
-            <Card>
-              <CardHeader className="header">
+
+		let element;
+		if(this.state.dataLoaded){
+			element = <div>
+				<CardHeader className="header">
                   <div>
-                <div className="header-title">state.title</div>
-                <div className="header-subtitle">state.subtitle</div>
+                <div className="header-title">{this.state.title}</div>
+                <div className="header-subtitle">{this.state.subtitle}</div>
                 </div>
               </CardHeader>
               <CardContent>
-              state.content
-              </CardContent>
+              {this.state.content}
+			  </CardContent>
+			</div>;
+		} else {
+			element = <div id="loading_screen">
+				<div id="loading_text">Wikipedia Informationen werden abgerufen</div>
+				<div id="loader"><Preloader></Preloader></div>
+			</div>;
+		}
+		return (
+            <Card>
+             {element}
             </Card>
         );
     }
-	constructor() {
-		super();
-		this.fetchWikipedia("Ravensburg");
-	}
 }
 export default WikiInfo;

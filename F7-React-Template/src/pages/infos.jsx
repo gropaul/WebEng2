@@ -1,6 +1,6 @@
 import React from 'react';
 import { Page, Navbar, NavRight, NavLeft, Link, Block, BlockTitle, NavTitle } from 'framework7-react';
-import WikiInfo from '../components/wikiInfo';
+import WikiInfo from '../components/wikiInfo/wikiInfo';
 
 export default () => (
     <Page>
@@ -8,6 +8,6 @@ export default () => (
             <img src='../static/icons/dhbw.png' class='logo' slot='right' ></img>
         </Navbar>
         <BlockTitle>Wikipedia Infos</BlockTitle>
-        <WikiInfo></WikiInfo>
+        <WikiInfo locationName="Ravensburg"></WikiInfo>
     </Page>
 );
