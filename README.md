@@ -48,16 +48,7 @@ Output: String Datenstruktur: json <br>
 Attribute: 
 ```json
 {
-"house_number": "4",
-"road": "Prielmayerstraße",
-"suburb": "Zeppelindorf",
-"town": "Friedrichshafen",
-"municipality": "Verwaltungsgemeinschaft Friedrichshafen",
-"county": "Bodenseekreis",
-"state": "Baden-Württemberg",
-"postcode": "88045",
-"country": "Germany",
-"country_code": "de"
+"amenity":"Graf-Zeppelin-Haus","house_number":"20","road":"Olgastraße","town":"Friedrichshafen","municipality":"Verwaltungsgemeinschaft Friedrichshafen","county":"Bodenseekreis","state":"Baden-Württemberg","postcode":"88045","country":"Germany","country_code":"de"
 }
 ```
 
