@@ -67,7 +67,7 @@ Attribute: Straße, Hausnummer, Postleitzahl <br>
 Output: String Datenstruktur: json <br>
 Attribute: 
 ```json
-{ "longitude": lng, "latitude": lat } 
+{ "longitude": "lng", "latitude": "lat" } 
 ```
 
 3.	get_position.js <br>
@@ -75,7 +75,7 @@ Input: get_position() <br>
 Output: String Datenstruktur: json <br>
 Attribute: 
 ```json
-{ "longitude": lng, "latitude": lat }
+{ "longitude": "lng", "latitude": "lat"}
 ```
 
 
