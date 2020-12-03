@@ -48,10 +48,19 @@ Output: String Datenstruktur: json <br>
 Attribute: 
 ```json
 {
-"amenity":"Graf-Zeppelin-Haus","house_number":"20","road":"Olgastraße","town":"Friedrichshafen","municipality":"Verwaltungsgemeinschaft Friedrichshafen","county":"Bodenseekreis","state":"Baden-Württemberg","postcode":"88045","country":"Germany","country_code":"de"
+	"amenity":"Graf-Zeppelin-Haus",
+	"house_number":"20",
+	"road":"Olgastraße",
+	"town":"Friedrichshafen",
+	"municipality":"Verwaltungsgemeinschaft Friedrichshafen",
+	"county":"Bodenseekreis",
+	"state":"Baden-Württemberg",
+	"postcode":"88045",
+	"country":"Germany",
+	"country_code":"de"
 }
 ```
-
+Wichtig: "amenity" ist nur manchmal vorhanden!
 2.	location2geo.js <br>
 Input: get_geo(String Datenstruktur: json) <br>
 Attribute: Straße, Hausnummer, Postleitzahl <br>
