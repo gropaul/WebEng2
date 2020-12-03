@@ -10,8 +10,10 @@ class Route extends Component {
         this.calcRoute = this.calcRoute.bind(this);
 
 		this.state = {
-			startCoordinates: "",
-			endCoordinates: ""
+			startLatitude: "",
+			startLongitude: "",
+			endLatitude: "",
+			endLongitude: ""
 		}
     }
 
@@ -19,7 +21,7 @@ class Route extends Component {
 		var state = this.state;
 		state[name] = value;
         this.setState(state);
-		console.log(this.state)
+		console.log(this.state.startLatitude)
     }
 
     calcRoute() {
@@ -28,7 +30,7 @@ class Route extends Component {
         });
 
         Directions.calculate({
-            coordinates: [[8.690958, 49.404662], [8.687868, 49.390139]],
+            coordinates: [[this.state.startLongitude, this.state.startLatitude], [this.state.endLongitude, this.state.endLatitude]],
             profile: "driving-car",
             extra_info: ["waytype", "steepness"],
             format: "json",
@@ -49,7 +51,6 @@ class Route extends Component {
                 //response = response.replace(/(\t)/g, '&nbsp;&nbsp;');
                 //node.innerHTML = "<h3>Response</h3><p>" + response + "</p>";
                 //node.innerHTML = response ;
-				console.log(this.state.startCoordinates)
                 console.log(response);
             })
             .catch(function (err) {
@@ -67,18 +68,32 @@ class Route extends Component {
                 <Card title="Navigation">
                     <hi>Navigation:</hi>
 					<input
-                        title="Start-Position"
-                        onChange={e => this.onTaskInputChange(e.target.value, 'startCoordinates')}
-                        type="text"
-                        value={this.state.startCoordinates}
-						placeholder="Start Latitude,Longitude"
+                        title="Start-PositionLat"
+                        onChange={e => this.onTaskInputChange(e.target.value, 'startLatitude')}
+                        type="number"
+                        value={this.state.startLatitude}
+						placeholder="Start Latitude XX.xxxxxx"
+                    />
+					<input
+                        title="Start-PositionLon"
+                        onChange={e => this.onTaskInputChange(e.target.value, 'startLongitude')}
+                        type="number"
+                        value={this.state.startLongitude}
+						placeholder="Start Longitude XX.xxxxxx"
                     />
                     <input
-                        title="End-Position"
-                        onChange={e => this.onTaskInputChange(e.target.value, 'endCoordinates')}
-                        type="text"
-                        value={this.state.endCoordinates}
-						placeholder="End Latitude,Longitude"
+                        title="End-PositionLat"
+                        onChange={e => this.onTaskInputChange(e.target.value, 'endLatitude')}
+                        type="number"
+                        value={this.state.endLatitude}
+						placeholder="End Latitude"
+                    />
+					<input
+                        title="End-PositionLon"
+                        onChange={e => this.onTaskInputChange(e.target.value, 'endLongitude')}
+                        type="number"
+                        value={this.state.endLongitude}
+						placeholder="End Longitude"
                     />
                     <br></br>
                     <button
