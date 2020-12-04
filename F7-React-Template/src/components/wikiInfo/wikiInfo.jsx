@@ -66,7 +66,8 @@ class WikiInfo extends React.Component {
 						var subtitle = json.query.search[0].snippet;
 
 						//Clean subtitle from html tags
-						//TODO
+						//The used regular expression removes every character that is not '<' or '>' between a '<' and a '>' or '$' (can have a leading '/', but that's optional)
+						subtitle = subtitle.replace(/<\/?[^>]+(>|$)/g, "");
 
 						//Step 2: Get description and small extract
 						wikiURL = "https://de.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&pageids=" + pageID + "&origin=*";
