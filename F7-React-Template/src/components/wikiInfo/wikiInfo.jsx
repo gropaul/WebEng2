@@ -18,10 +18,10 @@ class WikiInfo extends React.Component {
 	}
 
 	// Writes the error information to the state
-	handleError(responseStatus, response) {
+	handleError(responseStatus, response, dataLoaded) {
 		this.setState(
 			{
-				dataLoaded: false,
+				dataLoaded: dataLoaded,
 				title: "Error :(",
 				subtitle: "Error-Code: " + responseStatus,
 				content: response
@@ -55,16 +55,20 @@ class WikiInfo extends React.Component {
 				switch (responseStatus) {
 					//Everything is fine
 					case 200:
+						//First: Let's check if there are any results...
+						if (typeof json.query.search === 'undefined' || json.query.search.length <= 0) {
+							this.handleError("Es wurde kein passender Inhalt zum Suchbegriff gefunden", "", true);
+							return;
+						}
+						//Ok, there are results in the array, so we actually found something
 						var pageID = json.query.search[0].pageid;
 						var pageTitle = json.query.search[0].title;
 						var subtitle = json.query.search[0].snippet;
 
+						//Clean subtitle from html tags
+						//TODO
+
 						//Step 2: Get description and small extract
-						if (pageID == "") {
-							
-							this.handleError("Es wurde kein passender Inhalt zum Suchbegriff gefunden", "");
-							return;
-						}
 						wikiURL = "https://de.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&pageids=" + pageID + "&origin=*";
 						fetch(wikiURL)
 							.then(response => {
@@ -89,7 +93,7 @@ class WikiInfo extends React.Component {
 										);
 										break;
 									default:
-										this.handleError(responseStatus, response);
+										this.handleError(responseStatus, response, true);
 										return;
 								}
 							})
@@ -99,12 +103,12 @@ class WikiInfo extends React.Component {
 						break;
 					//Something went wrong
 					default:
-						this.handleError(responseStatus, response);
+						this.handleError(responseStatus, response, true);
 						return;
 				}
 			})
 			.catch(error => {
-				this.handleError(responseStatus, response);
+				this.handleError(responseStatus, response, true);
 				return;
 			});
 		return;
