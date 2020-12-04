@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMapEvent } from 'react-leaflet';
 import "./Maps.css";
 import L from 'leaflet';
@@ -67,7 +67,31 @@ function setMarkerStart(){
     document.getElementById("buttonMarker").innerHTML = "Startpoint";
   }
 }
+/*
+function CurrentLocation(){
+  const mapRef = useRef();
 
+  useEffect(() =>{
+    const{current={}} = mapRef;
+    const{leafletElement: map} = current;
+
+    map.locate({
+      setView: true
+    });
+
+    map.on('locationfound', handleOwnLocation);
+  }, []);
+
+  function handleOwnLocation(event){
+    const{current={}} = mapRef;
+    const{leafletElement: map} = current;
+
+    const latlng = event.latlng;
+
+    L.marker(latlng, markerOptionsEnd).addTo(map);
+  }
+}
+*/
 // This function creates the Markers, set them to its layer and
 // add the layer to the MapContainer
 // This is called as an element in the HTML component
@@ -147,7 +171,33 @@ function MapMarker() {
       // The button will always display the active Marker
       document.getElementById("buttonMarker").innerHTML = "Startpoint";
     }
-  })
+  });
+  
+  navigator.geolocation.getCurrentPosition(function(position) {
+   // L.marker([position.coords.latitude, position.coords.longitude]).addTo(map);
+    console.log("Latitude is :", position.coords.latitude);
+    console.log("Longitude is :", position.coords.longitude);
+  });
+
+  /*
+  const onSuccess = location => {
+    L.marker([location.coords.latitude, location.coords.longitude]).addTo(map);
+  }
+
+  navigator.geolocation.getCurrentLocation(onSuccess);
+
+  map.locate({
+    setView: true
+  });
+
+  map.on('locationfound', handleOwnLocation);
+
+  function handleOwnLocation(event){
+    // L.marker(event.latlng).addTo(map);
+    // L.circle(event.latlng, event.accuracy).addTo(map);
+  }
+  */
+
   return null;
 }
 
