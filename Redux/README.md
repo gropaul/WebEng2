@@ -27,6 +27,12 @@ Discord: https://discord.gg/Ve863Wzdnq
 
 ### Karte
 
+<b>Komponente:</b><br/>Maps<br/>
+<b>Koordinaten:</b>	<br/>latitudeStart
+		<br/>longitudeStart
+		<br/>latitudeEnd
+		<br/>longitudeEnd<br/>
+
 #### Schnittstelle für Marker der Postion des Nutzers
 
 #### Schnittstelle für Marker für Wikipediaeinträge
@@ -38,16 +44,42 @@ Discord: https://discord.gg/Ve863Wzdnq
 1.	geo2location.js <br> 
 Input: get_location(float lng, float lat) <br>
 Output: String Datenstruktur: json <br>
-Attribute: TODO z.B Straße, Hausnummer, PLZ, Ort, Bezeichnung <br>
 
+Attribute: 
+```json
+{
+	"amenity":"Graf-Zeppelin-Haus",
+	"house_number":"20",
+	"road":"Olgastraße",
+	"town":"Friedrichshafen",
+	"municipality":"Verwaltungsgemeinschaft Friedrichshafen",
+	"county":"Bodenseekreis",
+	"state":"Baden-Württemberg",
+	"postcode":"88045",
+	"country":"Germany",
+	"country_code":"de"
+}
+```
+Wichtig: "amenity" ist nur manchmal vorhanden!
 2.	location2geo.js <br>
-Input: location2geo(String Datenstruktur: json) <br>
+Input: get_geo(String Datenstruktur: json) <br>
 Attribute: Straße, Hausnummer, Postleitzahl <br>
-Output: float longitude, float latitude <br>
+Output: String Datenstruktur: json <br>
+
+Attribute: 
+```json
+{ "longitude": "lng", "latitude": "lat" } 
+```
+
 
 3.	get_position.js <br>
 Input: get_position() <br>
-Output: float longitude, float latitude <br>
+Output: String Datenstruktur: json <br>
+
+Attribute: 
+```json
+{ "longitude": "lng", "latitude": "lat"}
+```
 
 
 ### Wikipedia Anbindung
