@@ -1,18 +1,16 @@
 import React, { Component } from 'react';
 import { incrementCounter } from '../actions/index';
 import { connect } from 'react-redux';
-import Card from "./Card";
 import './App.css';
+import WikiInfoContainer from './WikiInfo/WikiInfo';
 
 class App extends Component {
 
   render() {
     return (
       <div className="App">
-        <Card title="Counter">
-          <h1>Ergebnis: {this.props.value}</h1>
-          <button onClick={this.props.onIncrement}>Addiere</button>
-        </Card>
+        Grundrahmen fürs Projekt
+        <WikiInfoContainer></WikiInfoContainer>
       </div>
     );
   }
