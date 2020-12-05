@@ -1,16 +1,19 @@
+
 {
   "name": "Redux-Training2",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "react": "^15.4.2",
-    "react-dom": "^15.4.2",
+    "leaflet": "^1.7.1",
+    "react": "^17.0.1",
+    "react-leaflet": "^3.0.2",
+    "react-dom": "^17.0.1",
     "react-redux": "^5.0.3",
     "redux": "^3.6.0",
     "uuid": "^7.0.3"
   },
   "devDependencies": {
-    "react-scripts": "^3.4.1"
+    "react-scripts": "^3.4.4"
   },
   "scripts": {
     "start": "react-scripts start",

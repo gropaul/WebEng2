@@ -26,6 +26,17 @@ Discord: https://discord.gg/Ve863Wzdnq
 ### Design und Layout
 
 ### Karte
+<b>Folgende Installationen ausführen:</b><br/><br/>
+npm install -g react-redux<br/>
+npm install -g react@^17.0.1 --save<br/>
+npm install -g react-dom@^17.0.1 --save<br/>
+npm install -g leaflet@^1.7.1 --save<br/>
+npm install -g react-leaflet@^1.7.1 --save<br/>
+npm i leaflet<br/>
+npm i react-leaflet<br/>
+npm install<br/>
+npm update<br/>
+npm audit fix<br/>
 
 <b>Komponente:</b><br/>Maps<br/>
 <b>Koordinaten:</b>	<br/>latitudeStart
