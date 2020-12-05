@@ -12,7 +12,7 @@ console.log(store.getState());
 ReactDOM.render(
   <Provider store={store}>
     <div>
-      <App />
+      <App/>
       <Route/>
     </div>
   </Provider>,

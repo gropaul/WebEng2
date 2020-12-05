@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Map as LeafletMap, TileLayer, Marker, Popup } from 'react-leaflet';
+import { MapContainer as LeafletMap, TileLayer, Marker, Popup } from 'react-leaflet';
 import { Page, List, ListInput, Navbar, View, Panel, Block, Button, Col, NavRight } from 'framework7-react';
 import '../css/map.css';
 
@@ -12,7 +12,7 @@ class Map extends Component {
 
 				<Panel right resizable themeDark>
 					<View>
-						<Page>
+						<Page> 
 							<Block>Routeninformationen werden hier angezeigt</Block>
 						</Page>
 					</View>
