@@ -71,21 +71,8 @@ export default class extends React.Component {
     return (
       <App params={this.state.f7params} >
 
-        {/* Views/Tabs container */}
-        <Views tabs className="safe-areas">
-          {/* Tabbar for switching views-tabs */}
-          <Toolbar tabbar labels bottom>
-            <Link tabLink="#view-home" tabLinkActive iconIos="f7:map" iconAurora="f7:map" iconMd="material:map" text="Karte" />
-            <Link tabLink="#view-info" iconIos="f7:info_circle" iconAurora="f7:info_circle" iconMd="material:info_circle" text="Informationen" />
-          </Toolbar>
 
-          {/* Your main view/tab, should have "view-main" class. It also has "tabActive" prop */}
-          <View id="view-home" main tab tabActive url="/" />
-
-          {/* Settings View */}
-          <View id="view-info" tab url="/infos/" />
-
-        </Views>
+        <View id="view-home" main tab tabActive url="/" />
 
       </App>
     )
