@@ -75,15 +75,15 @@ export default class extends React.Component {
         <Views tabs className="safe-areas">
           {/* Tabbar for switching views-tabs */}
           <Toolbar tabbar labels bottom>
-            <Link tabLink="#view-home" tabLinkActive iconIos="f7:map" iconAurora="f7:map" iconMd="material:map" text="Karte" />
             <Link tabLink="#view-info" iconIos="f7:info_circle" iconAurora="f7:info_circle" iconMd="material:info_circle" text="Informationen" />
+            <Link tabLink="#view-home" tabLinkActive iconIos="f7:map" iconAurora="f7:map" iconMd="material:map" text="Karte" />
           </Toolbar>
 
           {/* Your main view/tab, should have "view-main" class. It also has "tabActive" prop */}
-          <View id="view-home" main tab tabActive url="/" />
+          <View id="view-home" tab url="/" />
 
           {/* Settings View */}
-          <View id="view-info" tab url="/infos/" />
+          <View id="view-info" main tab tabActive url="/infos/" />
 
         </Views>
 

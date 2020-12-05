@@ -12,9 +12,7 @@ class Map extends Component {
 				<Navbar title="Karte" />
 				<LeafletMap
 					center={[48.137, 11.575]}
-					zoom={7}
-
-				>
+					zoom={7}>
 					<TileLayer
 						url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
 						attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
