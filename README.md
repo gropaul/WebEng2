@@ -4,6 +4,14 @@ Wilkommen bei der Dokumentation der Belegarbeit für Web Engineering 2!
 ## Aufgabenstellung
 Entwickeln Sie eine Web-Applikation die innerhalb eines Location-Based-Service eine Karte darstellt. Innerhalb der Karte soll eine Position (oder aktueller Standort) mit ihren Geo-Koordinaten ausgewählt werden können. Über diese Koordinaten soll mittels Reverse-Geocoding der Ort ermittelt und über Wikipedia die entsprechenden Information zur Örtlichkeit ausgelesen und visualisiert werden" Anschließend soll die Fahrroute von der gegenwärtigen Position zum ausgewählten Ort dargestellt werden.
 
+## Installieren
+* 🔥 `install` - install all dependencies
+---
+* 🔥 `start` - run development server
+* 🔧 `dev` - run development server
+* 🔧 `build-dev` - build web app using development mode (faster build without minification and optimization)
+* 🔧 `build-prod` - build web app for production
+
 ## Ansprechpartner
 
 | Rolle                                  | Ansprechpartner           |

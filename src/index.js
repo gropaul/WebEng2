@@ -13,7 +13,7 @@ ReactDOM.render(
   <Provider store={store}>
     <div>
       <App />
-      <Route />
+      <Route/>
     </div>
   </Provider>,
   document.getElementById('root')
