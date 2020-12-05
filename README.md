@@ -26,6 +26,23 @@ Discord: https://discord.gg/Ve863Wzdnq
 ### Design und Layout
 
 ### Karte
+<b>Folgende Installationen ausführen:</b><br/><br/>
+npm install -g react-redux<br/>
+npm install -g react@^17.0.1 --save<br/>
+npm install -g react-dom@^17.0.1 --save<br/>
+npm install -g leaflet@^1.7.1 --save<br/>
+npm install -g react-leaflet@^1.7.1 --save<br/>
+npm i leaflet<br/>
+npm i react-leaflet<br/>
+npm install<br/>
+npm update<br/>
+npm audit fix<br/>
+
+<b>Komponente:</b><br/>Maps<br/>
+<b>Koordinaten:</b>	<br/>latitudeStart
+		<br/>longitudeStart
+		<br/>latitudeEnd
+		<br/>longitudeEnd<br/>
 
 #### Schnittstelle für Marker der Postion des Nutzers
 
@@ -38,16 +55,42 @@ Discord: https://discord.gg/Ve863Wzdnq
 1.	geo2location.js <br> 
 Input: get_location(float lng, float lat) <br>
 Output: String Datenstruktur: json <br>
-Attribute: TODO z.B Straße, Hausnummer, PLZ, Ort, Bezeichnung <br>
 
+Attribute: 
+```json
+{
+	"amenity":"Graf-Zeppelin-Haus",
+	"house_number":"20",
+	"road":"Olgastraße",
+	"town":"Friedrichshafen",
+	"municipality":"Verwaltungsgemeinschaft Friedrichshafen",
+	"county":"Bodenseekreis",
+	"state":"Baden-Württemberg",
+	"postcode":"88045",
+	"country":"Germany",
+	"country_code":"de"
+}
+```
+Wichtig: "amenity" ist nur manchmal vorhanden!
 2.	location2geo.js <br>
-Input: location2geo(String Datenstruktur: json) <br>
+Input: get_geo(String Datenstruktur: json) <br>
 Attribute: Straße, Hausnummer, Postleitzahl <br>
-Output: float longitude, float latitude <br>
+Output: String Datenstruktur: json <br>
+
+Attribute: 
+```json
+{ "longitude": "lng", "latitude": "lat" } 
+```
+
 
 3.	get_position.js <br>
 Input: get_position() <br>
-Output: float longitude, float latitude <br>
+Output: String Datenstruktur: json <br>
+
+Attribute: 
+```json
+{ "longitude": "lng", "latitude": "lat"}
+```
 
 
 ### Wikipedia Anbindung
@@ -132,4 +175,27 @@ export default Container;
 
 ### Routenplaner 
 
+Genutztes Tool: OpenRouteService-API
+
+TOKEN: 5b3ce3597851110001cf6248325551c86d55441f8d7e5d496d06a201
+
 #### Schnittstellenbeschreibung
+
+1. 	Geo-Koordinaten: <br>
+	Für die Berechnung der Route sind die Koordinaten von Start- und Endpunkt notwendig. <br>
+	
+2. 	Map Interaktion: <br>
+	Der Startpunkt soll durch das Klicken auf die Map gesetzt werden. Danach wird der Endpunkt durch erneutes klicken auf die Map gesetzt. <br>
+	Außerdem soll es möglich sein Start- und Endpunkt in zwei Textfelder eingeben zu können. <br>
+	Das Setzen des Endpunktes ist der Trigger zur Berechnung der Route. <br>
+	Sobald die Route berechnet wurde, soll die Map die gesamte Route anzeigen/ auf die Route Zoomen. <br>
+	Außerdem soll die Route farblich markiert werden. <br>
+	
+3.	Direction Liste: <br>
+	Falls erwünscht - Anzeigen einer Liste mit der schrittweisen Beschreibung der Route. <br>
+	Dazu benötigt - Form in die das reingeschrieben werden soll. Stellen nur die Set-Methode zur Verfügung zum Reinschreiben der Daten. <br>
+
+
+	
+
+
