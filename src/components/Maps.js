@@ -72,7 +72,7 @@ function setMarkerStart(){
 // This function creates the Markers, set them to its layer and
 // add the layer to the MapContainer
 // This is called as an element in the HTML component
-function MapMarker() {
+function MapMarker(props) {
 
   // Create a constant map, which contains a useMapEvent (those are defined by Leaflet)
   // which will be triggered when a mouseclick on the map happens
@@ -96,6 +96,10 @@ function MapMarker() {
       // Create a Marker with L (=Leaflet) with the saved latitude and longitude
       // and the global options for the Startpoint Marker 
       layerStart = L.marker([latitudeStart, longitudeStart], markerOptionsStart).addTo(map);
+
+      // Add a popup to the marker
+      if (props.starttext)
+        layerStart.bindPopup(L.popup().setContent(props.starttext));
 
       // Add the layer to the constant map
       layerStart.addTo(map);
@@ -146,6 +150,10 @@ function MapMarker() {
       // and the global options for the Endpoint Marker 
       layerEnd = L.marker([latitudeEnd, longitudeEnd], markerOptionsEnd).addTo(map);
 
+      // Add a popup to the marker
+      if (props.endtext)
+        layerEnd.bindPopup(L.popup().setContent(props.endtext));
+
       // Add the layer to the constant map
       layerEnd.addTo(map);
 
@@ -180,6 +188,11 @@ function MapMarker() {
     // Place Marker on the Map, by adding it to the layer layerStart and adding the
     // layer to the Map -> layer is used to be able to delete the marker afterwards
     layerStart = L.marker([latitudeStart, longitudeStart], markerOptionsStart).addTo(map);
+
+    // Add a popup to the marker
+    if (props.starttext)
+      layerStart.bindPopup(L.popup().setContent(props.starttext));
+
     layerStart.addTo(map);
 
     // For debug purposes, console log the Coordinates of the starting Point
@@ -198,6 +211,22 @@ function MapMarker() {
 */
 
 class Maps extends React.Component {
+    constructor(props) {
+      super(props)
+      this.state = {
+        startPopupText: "<h1>Placeholder</h1>text for<br/>start popup",
+        endPopupText: "<h1>Placeholder</h1>text for<br/>end popup"
+      }
+    }
+
+    setEndText(text) {
+      this.setState({endPopupText: text});
+    }
+
+    setStartText(text) {
+      this.setState({startPopupText: text});
+    }
+
     render() {
         return (
             <div>
@@ -206,7 +235,7 @@ class Maps extends React.Component {
                 <button id="buttonMarker" class="markerButtons" onClick={setMarkerStart}>Endpoint</button>
               </div>
             <MapContainer id="map" center={[50.0, 9.0]} zoom={13} scrollWheelZoom={true}>
-            <MapMarker></MapMarker>
+              <MapMarker starttext={this.state.startPopupText} endtext={this.state.endPopupText}></MapMarker>
               <TileLayer
                   attribution='&copy; <a href="http://osm.org/copyright%22%3EOpenStreetMap</a> contributors'
                   url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png">
