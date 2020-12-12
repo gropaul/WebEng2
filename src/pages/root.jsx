@@ -1,25 +1,22 @@
 import React, { Component } from 'react';
-import { MapContainer as LeafletMap, TileLayer, Marker, Popup } from 'react-leaflet';
-import { Page, List, ListInput, Navbar, View, Panel, Block, Button, Col, NavRight } from 'framework7-react';
-import '../css/map.css';
+import { Page, List, ListInput, Navbar, View, Panel, Block, Button, NavRight } from 'framework7-react';
+import Maps from '../components/Maps'
 
-class Map extends Component {
+
+export default class Root extends Component {
 
 	render() {
-
 		return (
 			<div>
-
 				<Panel right resizable themeDark>
 					<View>
-						<Page> 
+						<Page>
 							<Block>Routeninformationen werden hier angezeigt</Block>
 						</Page>
 					</View>
 				</Panel>
 
-
-				<Navbar title="Karte">
+				<Navbar title="WebEng2">
 					<NavRight><Button panelOpen="right">Routeninfos</Button></NavRight>
 				</Navbar>
 
@@ -40,22 +37,9 @@ class Map extends Component {
 					></ListInput>
 				</List>
 
-
-
-				<LeafletMap
-					center={[48.137, 11.575]}
-					zoom={7}>
-					<TileLayer
-						url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
-						attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-					/>
-				</LeafletMap>
-
-
+				<Maps></Maps>
 
 			</div>
 		);
 	}
 }
-
-export default Map

@@ -1,5 +1,22 @@
 /* required styles */
 
+.leaflet-container {
+    width: 90%;
+    height: 95vh;
+}
+
+.markerButtons {
+    width: 100%;
+    background-color: rgb(118, 231, 231);
+    color: black;
+    font-family: Calibri;
+    font-size: 15pt;
+}
+
+.divButton {
+    float: right;
+}
+
 .leaflet-pane,
 .leaflet-tile,
 .leaflet-marker-icon,
