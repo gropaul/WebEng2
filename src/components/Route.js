@@ -86,14 +86,14 @@ class Route extends Component {
                         onChange={e => this.onTaskInputChange(e.target.value, 'endLatitude')}
                         type="number"
                         value={this.state.endLatitude}
-						placeholder="End Latitude"
+						placeholder="End Latitude XX.xxxxxx"
                     />
 					<input
                         title="End-PositionLon"
                         onChange={e => this.onTaskInputChange(e.target.value, 'endLongitude')}
                         type="number"
                         value={this.state.endLongitude}
-						placeholder="End Longitude"
+						placeholder="End Longitude XX.xxxxxx"
                     />
                     <br></br>
                     <button
