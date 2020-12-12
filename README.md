@@ -39,7 +39,7 @@ npm install -g react-redux<br/>
 npm install -g react@^17.0.1 --save<br/>
 npm install -g react-dom@^17.0.1 --save<br/>
 npm install -g leaflet@^1.7.1 --save<br/>
-npm install -g react-leaflet@^1.7.1 --save<br/>
+npm install -g react-leaflet@^3.0.2 --save<br/>
 npm i leaflet<br/>
 npm i react-leaflet<br/>
 npm install<br/>
