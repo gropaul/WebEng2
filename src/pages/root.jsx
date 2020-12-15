@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Page, List, ListInput, Navbar, View, Panel, Block, Button, NavRight } from 'framework7-react';
-import Maps from '../components/Maps'
+import { Page, List, ListInput, Navbar, View, Panel, Block, Button, NavRight, NavLeft, Card, CardContent } from 'framework7-react';
+import Maps from '../components/Maps';
+import '../css/root.css';
 
 
 export default class Root extends Component {
@@ -16,29 +17,28 @@ export default class Root extends Component {
 					</View>
 				</Panel>
 
-				<Navbar title="WebEng2">
-					<NavRight><Button panelOpen="right">Routeninfos</Button></NavRight>
+				<Navbar>
+					<NavLeft>
+						<h1 className='ueberschriftRot'>WEB</h1><h1 className='ueberschriftGrau'>ENG II</h1>
+					</NavLeft>
+					<NavRight>
+						<Button panelOpen="right">Routeninfos</Button>
+					</NavRight>
 				</Navbar>
+				<div class='container'>
+					<div id='eingabe'><Card><List inlineLabels noHairlinesMd>
+						<ListInput
+							label="Ziel"
+							type="text"
+							placeholder="Hier das Ziel eingeben"
+							clearButton
+						></ListInput>
+					</List></Card></div>
 
-				<List inlineLabels noHairlinesMd>
-					<ListInput
-						label="Start"
-						type="text"
-						placeholder="Hier den Startpunkt eingeben"
-						clearButton
-					>
-					</ListInput>
 
-					<ListInput
-						label="Ziel"
-						type="text"
-						placeholder="Hier das Ziel eingeben"
-						clearButton
-					></ListInput>
-				</List>
 
-				<Maps></Maps>
-
+					<div id='map'><Maps></Maps></div>
+				</div>
 			</div>
 		);
 	}

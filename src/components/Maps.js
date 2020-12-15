@@ -201,7 +201,7 @@ export default class Maps extends Component {
   render() {
     return (
       <div>
-        <div class="divButton">
+        <div className="divButton">
           Active:<br></br>
           <button id="buttonMarker" class="markerButtons" onClick={setMarkerStart}>Endpoint</button>
         </div>

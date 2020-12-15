@@ -3,6 +3,13 @@ import { App, View } from 'framework7-react';
 import { incrementCounter } from '../actions/index';
 import { connect } from 'react-redux';
 import routes from '../js/routes';
+import { createStore } from 'redux'
+import { Provider } from 'react-redux';
+import index from '../reducers/index';
+
+
+let store = createStore(index);
+console.log(store.getState());
 
 
 export default class extends React.Component {
@@ -19,12 +26,17 @@ export default class extends React.Component {
   }
 
   render() {
+
     return (
-      <App params={this.state.f7params} >
+      <Provider store={store}>
+        <div>
+          <App params={this.state.f7params} >
 
-        <View id="view-map" main tab tabActive url="/" />
+            <View id="view-map" main tab tabActive url="/" />
 
-      </App>
+          </App>
+        </div>
+      </Provider>
     )
   }
 }
