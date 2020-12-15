@@ -51,11 +51,7 @@ npm audit fix<br/>
 		<br/>longitudeStart
 		<br/>latitudeEnd
 		<br/>longitudeEnd<br/>
-
-#### Schnittstelle für Marker der Postion des Nutzers
-
-#### Schnittstelle für Marker für Wikipediaeinträge
-
+		
 ### Reverse Geocoding
 
 #### Schnittstellenbeschreibung
