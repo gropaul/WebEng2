@@ -1,5 +1,8 @@
 /* required styles */
-
+#map {
+	position: fixed;
+	
+}
 
 .markerButtons {
     width: 100%;
