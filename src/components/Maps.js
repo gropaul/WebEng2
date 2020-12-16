@@ -1,7 +1,6 @@
-
 import React, { Component } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMapEvent } from 'react-leaflet';
-import "./Maps.css";
+import "../css/map.css";
 import L from 'leaflet';
 
 /*
@@ -29,25 +28,26 @@ var layerEnd;
 
 // Defining the icons for Start and Endpoint Marker
 var iconStart = L.icon({
-  //https://www.flaticon.com/de/kostenloses-icon/anfang_1531126#
-  iconUrl: '../public/anfang.png',
+  iconUrl: '../static/icons/markerStart.png',
   iconSize: [30, 30]
 });
 
 var iconEnd = L.icon({
-  iconUrl: '../public/anfang.png',
+  iconUrl: '../static/icons/markerEnd.png',
   iconSize: [30, 30]
 });
 
 // Defining the options of the Start and Endpoint Marker - make it draggable and give it a title
 var markerOptionsStart = {
   draggable: true,
-  title: "Startpoint"
+  title: "Startpoint",
+  icon: iconStart
 }
 
 var markerOptionsEnd = {
   draggable: true,
-  title: "Endpoint"
+  title: "Endpoint",
+  icon: iconEnd
 }
 
 /*
@@ -230,11 +230,11 @@ class Maps extends React.Component {
     render() {
         return (
             <div>
-              <div class="divButton">
+              <div className="divButton">
                 Active:<br></br>
-                <button id="buttonMarker" class="markerButtons" onClick={setMarkerStart}>Endpoint</button>
+                <button id="buttonMarker" className="markerButtons" onClick={setMarkerStart}>Endpoint</button>
               </div>
-            <MapContainer id="map" center={[50.0, 9.0]} zoom={13} scrollWheelZoom={true}>
+            <MapContainer id="map" center={[50.0, 9.0]} zoom={13} scrollWheelZoom={true} minZoom={3}>
               <MapMarker starttext={this.state.startPopupText} endtext={this.state.endPopupText}></MapMarker>
               <TileLayer
                   attribution='&copy; <a href="http://osm.org/copyright%22%3EOpenStreetMap</a> contributors'
