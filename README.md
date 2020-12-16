@@ -35,11 +35,11 @@ Discord: https://discord.gg/Ve863Wzdnq
 
 ### Karte
 <b>Folgende Installationen ausführen:</b><br/><br/>
-npm install -g react-redux<br/>
-npm install -g react@^17.0.1 --save<br/>
-npm install -g react-dom@^17.0.1 --save<br/>
-npm install -g leaflet@^1.7.1 --save<br/>
-npm install -g react-leaflet@^3.0.2 --save<br/>
+npm install react-redux<br/>
+npm install react@^17.0.1 --save<br/>
+npm install react-dom@^17.0.1 --save<br/>
+npm install leaflet@^1.7.1 --save<br/>
+npm install react-leaflet@^3.0.2 --save<br/>
 npm i leaflet<br/>
 npm i react-leaflet<br/>
 npm install<br/>
