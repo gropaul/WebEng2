@@ -1,0 +1,32 @@
+h1{
+    font-size: 27px;
+    font-family: roboto, sans-serif;
+}
+
+.ueberschriftRot {
+    margin-left: 10px;
+    color: #e2001a;
+}
+
+.ueberschriftGrau {
+    color: #5b6a72;
+}
+
+#container{
+    width: 200px;
+    height: 200px;
+    position: relative;
+    margin: 20px;
+}
+.map{
+    width: 100%;
+    height: 100%;            
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0.8;  /* for demo purpose  */
+}
+.eingabe{
+    z-index: 9;
+    margin: 20px; /* for demo purpose  */
+}
