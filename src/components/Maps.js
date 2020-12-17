@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMapEvent } from 'react-leaflet';
 import "../css/map.css";
-import L from 'leaflet';
+import Leaflet from 'leaflet';
+import {get_location} from '../js/geo2location.js';
+import WikiInfo from './wikiInfo/wikiInfo.jsx';
 
 /*
   Define global variables
@@ -27,12 +29,12 @@ var layerStart;
 var layerEnd;
 
 // Defining the icons for Start and Endpoint Marker
-var iconStart = L.icon({
+var iconStart = Leaflet.icon({
   iconUrl: '../static/icons/markerStart.png',
   iconSize: [30, 30]
 });
 
-var iconEnd = L.icon({
+var iconEnd = Leaflet.icon({
   iconUrl: '../static/icons/markerEnd.png',
   iconSize: [30, 30]
 });
@@ -93,13 +95,13 @@ function MapMarker(props) {
       latitudeStart = e.latlng["lat"];
       longitudeStart = e.latlng["lng"];
 
-      // Create a Marker with L (=Leaflet) with the saved latitude and longitude
+      // Create a Marker with Leaflet (=Leaflet) with the saved latitude and longitude
       // and the global options for the Startpoint Marker 
-      layerStart = L.marker([latitudeStart, longitudeStart], markerOptionsStart).addTo(map);
+      layerStart = Leaflet.marker([latitudeStart, longitudeStart], markerOptionsStart).addTo(map);
 
       // Add a popup to the marker
       if (props.starttext)
-        layerStart.bindPopup(L.popup().setContent(props.starttext));
+        layerStart.bindPopup(Leaflet.popup().setContent(props.starttext));
 
       // Add the layer to the constant map
       layerStart.addTo(map);
@@ -140,19 +142,33 @@ function MapMarker(props) {
       latitudeEnd = e.latlng["lat"];
       longitudeEnd = e.latlng["lng"];
 
+      // Get Information with latlong from geo2location component
+      get_location(longitudeEnd, latitudeEnd)
+        .then( (locationdata) => {
+          console.log(locationdata.amenity)
+          if(locationdata.amenity === ""){
+            // SHOW NOTHING
+          }
+          else{
+            // Place Popup over the End Marker everytime it is set --> Philipp du schafst das!
+            layerEnd.bindPopup(Leaflet.popup().setLatLng([latitudeEnd, longitudeEnd])
+              .setContent("Place WikiInfos here").openOn(map));
+          }
+        });
+
       // Set Map to maximum zoom with the 2 set markers
       map.fitBounds([
         [latitudeStart, longitudeStart],
         [latitudeEnd, longitudeEnd]
       ]);
 
-      // Create a Marker with L (=Leaflet) with the saved latitude and longitude
+      // Create a Marker with Leaflet (=Leaflet) with the saved latitude and longitude
       // and the global options for the Endpoint Marker 
-      layerEnd = L.marker([latitudeEnd, longitudeEnd], markerOptionsEnd).addTo(map);
+      layerEnd = Leaflet.marker([latitudeEnd, longitudeEnd], markerOptionsEnd).addTo(map);
 
       // Add a popup to the marker
       if (props.endtext)
-        layerEnd.bindPopup(L.popup().setContent(props.endtext));
+        layerEnd.bindPopup(Leaflet.popup().setContent(props.endtext));
 
       // Add the layer to the constant map
       layerEnd.addTo(map);
@@ -187,11 +203,11 @@ function MapMarker(props) {
 
     // Place Marker on the Map, by adding it to the layer layerStart and adding the
     // layer to the Map -> layer is used to be able to delete the marker afterwards
-    layerStart = L.marker([latitudeStart, longitudeStart], markerOptionsStart).addTo(map);
+    layerStart = Leaflet.marker([latitudeStart, longitudeStart], markerOptionsStart).addTo(map);
 
     // Add a popup to the marker
     if (props.starttext)
-      layerStart.bindPopup(L.popup().setContent(props.starttext));
+      layerStart.bindPopup(Leaflet.popup().setContent(props.starttext).openOn(map));
 
     layerStart.addTo(map);
 
@@ -241,6 +257,7 @@ class Maps extends React.Component {
                   url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png">
               </TileLayer>
             </MapContainer>
+            <WikiInfo locationName=""></WikiInfo>
             </div>
         );
     }
@@ -249,6 +266,8 @@ class Maps extends React.Component {
 export default Maps;
 
 /*
+
+
 <Marker position={[47.665217, 9.447650]} style="background-color: red">
   <Popup>
     <h1>Philipp ist der coolste!</h1>
