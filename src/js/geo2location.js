@@ -12,4 +12,4 @@ function get_location(lng, lat) {
 				//console.log(data);
 				return data;
 			})			
-}
+} 
