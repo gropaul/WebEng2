@@ -13,10 +13,7 @@ class WikiInfo extends React.Component {
 				subtitle: "",
 				content: ""
 			}
-		
-		this.fetchWikipedia(props.locationName);
 	}
-
 	// Writes the error information to the state
 	handleError(responseStatus, response, dataLoaded) {
 		this.setState(
@@ -46,7 +43,8 @@ class WikiInfo extends React.Component {
 		var responseStatus = 200;
 		var wikiURL = "https://de.wikipedia.org/w/api.php?action=query&list=search&srsearch=" + locationNamePrepared + "&format=json&origin=*";
 		
-		fetch(wikiURL)
+		return new Promise((resolve,reject) =>{
+			fetch(wikiURL)
 			.then( response => {
 				responseStatus = response.status;
 				return response.json();
@@ -58,7 +56,7 @@ class WikiInfo extends React.Component {
 						//First: Let's check if there are any results...
 						if (typeof json.query.search === 'undefined' || json.query.search.length <= 0) {
 							this.handleError("Es wurde kein passender Inhalt zum Suchbegriff gefunden", "", true);
-							return;
+							reject("Error kein Inhalt");
 						}
 						//Ok, there are results in the array, so we actually found something
 						var pageID = json.query.search[0].pageid;
@@ -92,10 +90,12 @@ class WikiInfo extends React.Component {
 												content: content
 											}
 										);
+										resolve("Success");
 										break;
+										
 									default:
 										this.handleError(responseStatus, response, true);
-										return;
+										reject("Error falscher Response Status innen");
 								}
 							})
 							.catch(error => {
@@ -105,14 +105,15 @@ class WikiInfo extends React.Component {
 					//Something went wrong
 					default:
 						this.handleError(responseStatus, response, true);
-						return;
+						reject("ErrError falscher Response Status außen");
 				}
 			})
 			.catch(error => {
 				this.handleError(responseStatus, response, true);
-				return;
+				reject("Error 2");
 			});
-		return;
+			reject("Error 3");
+		})
 	}
 	
 	render(){

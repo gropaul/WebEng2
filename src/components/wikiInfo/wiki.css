@@ -1,0 +1,21 @@
+.header-title{
+    font-size: x-large;
+    font: bold;
+}
+
+.header-subtitle{
+    font-size: small;
+    color: gray;
+}
+
+#loading_text{
+    text-align: center;
+    font-size: large;
+    padding: 2em;
+}
+
+#loader{
+    padding-bottom: 2em;
+    position: relative;
+    left: 50%;
+}

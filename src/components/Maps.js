@@ -2,7 +2,9 @@
 import React, { Component } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMapEvent } from 'react-leaflet';
 import "../css/map.css";
-import L from 'leaflet';
+import L, { popup } from 'leaflet';
+import Wiki from './wikiInfo/wiki';
+import ReactDOMServer from "react-dom/server";
 
 /*
   Define global variables
@@ -29,6 +31,7 @@ var layerEnd;
 
 // Defining the icons for Start and Endpoint Marker
 var iconStart = L.icon({
+
   iconUrl: '../static/icons/markerStart.png',
   iconSize: [30, 30]
 });
@@ -100,7 +103,7 @@ function MapMarker(props) {
 
       // Add a popup to the marker
       if (props.starttext)
-        layerStart.bindPopup(L.popup().setContent(props.starttext));
+        layerStart.bindPopup(L.popup().setContent("haga"));
 
       // Add the layer to the constant map
       layerStart.addTo(map);
@@ -152,8 +155,20 @@ function MapMarker(props) {
       layerEnd = L.marker([latitudeEnd, longitudeEnd], markerOptionsEnd).addTo(map);
 
       // Add a popup to the marker
-      if (props.endtext)
-        layerEnd.bindPopup(L.popup().setContent(props.endtext));
+      if (props.endtext){
+        var wiki = new Wiki()
+        var popup = L.popup()
+        popup.setContent(ReactDOMServer.renderToString(wiki.get_html()));
+        layerEnd.bindPopup(popup);
+         wiki.fetchWikipedia("Stuttgart").then(()=>{
+          console.log("Fetching finished")
+          popup.setContent(ReactDOMServer.renderToString(wiki.get_html()));
+          //layerEnd.bindPopup(popup);
+        })
+      }
+       
+       
+        
 
       // Add the layer to the constant map
       layerEnd.addTo(map);
@@ -235,6 +250,7 @@ class Maps extends React.Component {
                 Active:<br></br>
                 <button id="buttonMarker" className="markerButtons" onClick={setMarkerStart}>Endpoint</button>
               </div>
+            
             <MapContainer id="map" center={[50.0, 9.0]} zoom={13} scrollWheelZoom={true} minZoom={3}>
               <MapMarker starttext={this.state.startPopupText} endtext={this.state.endPopupText}></MapMarker>
               <TileLayer
@@ -242,6 +258,7 @@ class Maps extends React.Component {
                   url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png">
               </TileLayer>
             </MapContainer>
+            
             </div>
         );
     }
