@@ -167,29 +167,34 @@ function MapMarker(props) {
       // Get Information with latlong from geo2location component
       get_location(longitudeEnd, latitudeEnd)
         .then( (locationdata) => {
-          console.log(locationdata.amenity)
-          if(locationdata.amenity === ""){
-            // SHOW NOTHING
-          }
-          else{
-            // Place Popup over the End Marker everytime it is set --> Philipp du schafst das!
-                    // Add a popup to the marker
-              if (props.endtext){
-                var popupProps = {
-                  keepInView: false,
-                  closeButton: true
-                };
 
-                var wiki = new Wiki()
-                var popup = L.popup(popupProps)
-                popup.setContent(ReactDOMServer.renderToString(wiki.get_html()));
-                layerEnd.bindPopup(popup);
-                wiki.fetchWikipedia(locationdata.amenity).then(()=>{
-                  console.log("Fetching finished")
-                  popup.setContent(ReactDOMServer.renderToString(wiki.get_html()));
-                  //layerEnd.bindPopup(popup);
-                })
-              }
+          var locationName = ""
+          console.log(locationdata)
+          if(locationdata.amenity){
+            locationName = locationdata.amenity
+          } else if(locationdata.town) {
+            locationName = locationdata.town
+          } else if(locationdata.state) {
+            locationName = locationdata.state
+          }
+        // Place Popup over the End Marker everytime it is set --> Philipp du schafst das!
+                // Add a popup to the marker
+          if (props.endtext){
+            var popupProps = {
+              keepInView: false,
+              closeButton: true
+            };
+
+            var wiki = new Wiki()
+            var popup = L.popup(popupProps)
+            popup.setContent(ReactDOMServer.renderToString(wiki.get_html()));
+            layerEnd.bindPopup(popup);
+            wiki.fetchWikipedia(locationName).then(()=>{
+              console.log("Fetching finished")
+              popup.setContent(ReactDOMServer.renderToString(wiki.get_html()));
+              //layerEnd.bindPopup(popup);
+            })
+              
           }
         });
 
@@ -233,9 +238,11 @@ function MapMarker(props) {
     // layer to the Map -> layer is used to be able to delete the marker afterwards
     layerStart = Leaflet.marker([latitudeStart, longitudeStart], markerOptionsStart).addTo(map);
 
+    /* This creates an endless Error Loop
     // Add a popup to the marker
     if (props.starttext)
       layerStart.bindPopup(Leaflet.popup().setContent(props.starttext).openOn(map), popupOptionsStart);
+    */
 
     layerStart.addTo(map);
 

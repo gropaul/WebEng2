@@ -109,7 +109,7 @@ export default class Wiki {
 
     get_html(){
         let element;
-		if(this.state.dataLoaded=="loaded"){
+		if(this.state.dataLoaded=="success"){
 			element = <div>
 				<CardHeader className="header">
                   <div>
