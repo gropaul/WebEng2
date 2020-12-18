@@ -5,6 +5,8 @@ import "../css/map.css";
 import L, { popup } from 'leaflet';
 import Wiki from './wikiInfo/wiki';
 import ReactDOMServer from "react-dom/server";
+import Leaflet from 'leaflet';
+import {get_location} from '../js/geo2location.js';
 
 /*
   Define global variables
@@ -30,13 +32,12 @@ var layerStart;
 var layerEnd;
 
 // Defining the icons for Start and Endpoint Marker
-var iconStart = L.icon({
-
+var iconStart = Leaflet.icon({
   iconUrl: '../static/icons/markerStart.png',
   iconSize: [30, 30]
 });
 
-var iconEnd = L.icon({
+var iconEnd = Leaflet.icon({
   iconUrl: '../static/icons/markerEnd.png',
   iconSize: [30, 30]
 });
@@ -52,6 +53,14 @@ var markerOptionsEnd = {
   draggable: true,
   title: "Endpoint",
   icon: iconEnd
+}
+
+var popupOptionsStart = {
+  maxWidth: 256
+}
+
+var popupOptionsEnd = {
+  maxWidth: 512
 }
 
 /*
@@ -97,13 +106,13 @@ function MapMarker(props) {
       latitudeStart = e.latlng["lat"];
       longitudeStart = e.latlng["lng"];
 
-      // Create a Marker with L (=Leaflet) with the saved latitude and longitude
+      // Create a Marker with Leaflet (=Leaflet) with the saved latitude and longitude
       // and the global options for the Startpoint Marker 
-      layerStart = L.marker([latitudeStart, longitudeStart], markerOptionsStart).addTo(map);
+      layerStart = Leaflet.marker([latitudeStart, longitudeStart], markerOptionsStart).addTo(map);
 
       // Add a popup to the marker
       if (props.starttext)
-        layerStart.bindPopup(L.popup().setContent("haga"));
+        layerStart.bindPopup(Leaflet.popup().setContent(props.starttext), popupOptionsStart);
 
       // Add the layer to the constant map
       layerStart.addTo(map);
@@ -139,10 +148,6 @@ function MapMarker(props) {
         layerEnd.remove();
       }
 
-      // Get the latitude and longitude from the mouseclick event
-      // The coordinates are stored in the Leaflet variable "latlng" as a JSON Object
-      latitudeEnd = e.latlng["lat"];
-      longitudeEnd = e.latlng["lng"];
 
       // Set Map to maximum zoom with the 2 set markers
       map.fitBounds([
@@ -150,22 +155,45 @@ function MapMarker(props) {
         [latitudeEnd, longitudeEnd]
       ]);
 
-      // Create a Marker with L (=Leaflet) with the saved latitude and longitude
+      // Create a Marker with Leaflet (=Leaflet) with the saved latitude and longitude
       // and the global options for the Endpoint Marker 
-      layerEnd = L.marker([latitudeEnd, longitudeEnd], markerOptionsEnd).addTo(map);
+      layerEnd = Leaflet.marker([latitudeEnd, longitudeEnd], markerOptionsEnd).addTo(map);
 
-      // Add a popup to the marker
-      if (props.endtext){
-        var wiki = new Wiki()
-        var popup = L.popup()
-        popup.setContent(ReactDOMServer.renderToString(wiki.get_html()));
-        layerEnd.bindPopup(popup);
-         wiki.fetchWikipedia("Stuttgart").then(()=>{
-          console.log("Fetching finished")
-          popup.setContent(ReactDOMServer.renderToString(wiki.get_html()));
-          //layerEnd.bindPopup(popup);
-        })
-      }
+      // Get the latitude and longitude from the mouseclick event
+      // The coordinates are stored in the Leaflet variable "latlng" as a JSON Object
+      latitudeEnd = e.latlng["lat"];
+      longitudeEnd = e.latlng["lng"];
+
+      // Get Information with latlong from geo2location component
+      get_location(longitudeEnd, latitudeEnd)
+        .then( (locationdata) => {
+          console.log(locationdata.amenity)
+          if(locationdata.amenity === ""){
+            // SHOW NOTHING
+          }
+          else{
+            // Place Popup over the End Marker everytime it is set --> Philipp du schafst das!
+                    // Add a popup to the marker
+              if (props.endtext){
+                var popupProps = {
+                  keepInView: false,
+                  closeButton: true
+                };
+
+                var wiki = new Wiki()
+                var popup = L.popup(popupProps)
+                popup.setContent(ReactDOMServer.renderToString(wiki.get_html()));
+                layerEnd.bindPopup(popup);
+                wiki.fetchWikipedia(locationdata.amenity).then(()=>{
+                  console.log("Fetching finished")
+                  popup.setContent(ReactDOMServer.renderToString(wiki.get_html()));
+                  //layerEnd.bindPopup(popup);
+                })
+              }
+          }
+        });
+
+      
        
        
         
@@ -203,11 +231,11 @@ function MapMarker(props) {
 
     // Place Marker on the Map, by adding it to the layer layerStart and adding the
     // layer to the Map -> layer is used to be able to delete the marker afterwards
-    layerStart = L.marker([latitudeStart, longitudeStart], markerOptionsStart).addTo(map);
+    layerStart = Leaflet.marker([latitudeStart, longitudeStart], markerOptionsStart).addTo(map);
 
     // Add a popup to the marker
     if (props.starttext)
-      layerStart.bindPopup(L.popup().setContent(props.starttext));
+      layerStart.bindPopup(Leaflet.popup().setContent(props.starttext).openOn(map), popupOptionsStart);
 
     layerStart.addTo(map);
 
@@ -267,10 +295,13 @@ class Maps extends React.Component {
 export default Maps;
 
 /*
+
+
 <Marker position={[47.665217, 9.447650]} style="background-color: red">
   <Popup>
     <h1>Philipp ist der coolste!</h1>
   </Popup>
 </Marker>
+<<<<<<< HEAD
 >>>>>>> origin/MapComponent_work
 */
