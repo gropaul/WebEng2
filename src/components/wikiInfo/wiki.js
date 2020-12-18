@@ -1,6 +1,6 @@
 import {Card,CardHeader,CardContent,Preloader} from 'framework7-react';
 import React from 'react';
-import './wikiInfo.css'
+import './wiki.css'
 export default class Wiki {
 
     constructor(){
@@ -103,7 +103,7 @@ export default class Wiki {
                 </div>
               </CardHeader>
               <CardContent>
-              <p>{this.state.content}</p><p><a href={this.state.page_url}>Wikipedia</a></p>
+              <p>{this.state.content}</p><p><a target="_blank" className="link external" href={this.state.page_url}>Wikipedia</a></p>
 			  </CardContent>
 			</div>;
 		} else {
