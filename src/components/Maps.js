@@ -175,8 +175,22 @@ function MapMarker(props) {
       layerEnd = Leaflet.marker([latitudeEnd, longitudeEnd], markerOptionsEnd).addTo(map);
 
       // Add a popup to the marker
-      if (props.endtext)
-        layerEnd.bindPopup(Leaflet.popup().setContent(props.endtext), popupOptionsEnd);
+      if (props.endtext){
+        var popupProps = {
+          keepInView: false,
+          closeButton: true
+        };
+
+        var wiki = new Wiki()
+        var popup = L.popup(popupProps)
+        popup.setContent(ReactDOMServer.renderToString(wiki.get_html()));
+        layerEnd.bindPopup(popup);
+         wiki.fetchWikipedia("Stuttgart").then(()=>{
+          console.log("Fetching finished")
+          popup.setContent(ReactDOMServer.renderToString(wiki.get_html()));
+          //layerEnd.bindPopup(popup);
+        })
+      }
 
       // Add the layer to the constant map
       layerEnd.addTo(map);
