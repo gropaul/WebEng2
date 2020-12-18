@@ -164,6 +164,16 @@ function MapMarker(props) {
       latitudeEnd = e.latlng["lat"];
       longitudeEnd = e.latlng["lng"];
 
+      var popupProps = {
+        keepInView: false,
+        closeButton: true
+      };
+
+      var wiki = new Wiki()
+      var popup = L.popup(popupProps)
+      popup.setContent(ReactDOMServer.renderToString(wiki.get_html()));
+      layerEnd.bindPopup(popup);
+
       // Get Information with latlong from geo2location component
       get_location(longitudeEnd, latitudeEnd)
         .then( (locationdata) => {
@@ -179,23 +189,12 @@ function MapMarker(props) {
           }
         // Place Popup over the End Marker everytime it is set --> Philipp du schafst das!
                 // Add a popup to the marker
-          if (props.endtext){
-            var popupProps = {
-              keepInView: false,
-              closeButton: true
-            };
-
-            var wiki = new Wiki()
-            var popup = L.popup(popupProps)
-            popup.setContent(ReactDOMServer.renderToString(wiki.get_html()));
-            layerEnd.bindPopup(popup);
             wiki.fetchWikipedia(locationName).then(()=>{
               console.log("Fetching finished")
               popup.setContent(ReactDOMServer.renderToString(wiki.get_html()));
               //layerEnd.bindPopup(popup);
             })
               
-          }
         });
 
       
