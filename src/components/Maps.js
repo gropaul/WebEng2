@@ -227,11 +227,9 @@ function MapMarker(props) {
     // layer to the Map -> layer is used to be able to delete the marker afterwards
     layerStart = Leaflet.marker([latitudeStart, longitudeStart], markerOptionsStart).addTo(map);
 
-    /* This creates an endless Error Loop
     // Add a popup to the marker
     if (props.starttext)
-      layerStart.bindPopup(Leaflet.popup().setContent(props.starttext).openOn(map), popupOptionsStart);
-    */
+      layerStart.bindPopup(Leaflet.popup().setContent(props.starttext), popupOptionsStart);
 
     layerStart.addTo(map);
 
