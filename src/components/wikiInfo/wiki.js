@@ -114,7 +114,6 @@ export default class Wiki {
 				<CardHeader className="header">
                   <div>
                 <div className="header-title">{this.state.title}</div>
-                <div className="header-subtitle">{this.state.subtitle}</div>
                 </div>
               </CardHeader>
               <CardContent>
