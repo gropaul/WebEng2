@@ -60,9 +60,9 @@ export default class Wiki {
                                         switch (responseStatus) {
                                             case 200:
                                                 var content = json.query.pages[pageID].extract;
-                                                console.log("Title: " + pageTitle);
-                                                console.log("Subtitle: " + subtitle);
-                                                console.log("Content: " + content);
+                                                // console.log("Title: " + pageTitle);
+                                                // console.log("Subtitle: " + subtitle);
+                                                // console.log("Content: " + content);
                                                 // Write results to state
                                                 this.state = 
                                                     {

@@ -148,28 +148,21 @@ function MapMarker(props) {
         layerEnd.remove();
       }
 
-
-      // Set Map to maximum zoom with the 2 set markers
-      map.fitBounds([
-        [latitudeStart, longitudeStart],
-        [latitudeEnd, longitudeEnd]
-      ]);
-
-      // Create a Marker with Leaflet (=Leaflet) with the saved latitude and longitude
-      // and the global options for the Endpoint Marker 
-      layerEnd = Leaflet.marker([latitudeEnd, longitudeEnd], markerOptionsEnd).addTo(map);
-
       // Get the latitude and longitude from the mouseclick event
       // The coordinates are stored in the Leaflet variable "latlng" as a JSON Object
       latitudeEnd = e.latlng["lat"];
       longitudeEnd = e.latlng["lng"];
+
+      // Create a Marker with Leaflet (=Leaflet) with the saved latitude and longitude
+      // and the global options for the Endpoint Marker 
+      layerEnd = Leaflet.marker([latitudeEnd, longitudeEnd], markerOptionsEnd).addTo(map);
 
       // Get Information with latlong from geo2location component
       get_location(longitudeEnd, latitudeEnd)
         .then( (locationdata) => {
 
           var locationName = ""
-          console.log(locationdata)
+          // console.log(locationdata)
           if(locationdata.amenity){
             locationName = locationdata.amenity
           } else if(locationdata.town) {
@@ -181,30 +174,30 @@ function MapMarker(props) {
                 // Add a popup to the marker
           if (props.endtext){
             var popupProps = {
-              keepInView: false,
               closeButton: true
             };
 
             var wiki = new Wiki()
             var popup = L.popup(popupProps)
             popup.setContent(ReactDOMServer.renderToString(wiki.get_html()));
-            layerEnd.bindPopup(popup);
+            //layerEnd.bindPopup(popup);
             wiki.fetchWikipedia(locationName).then(()=>{
               console.log("Fetching finished")
               popup.setContent(ReactDOMServer.renderToString(wiki.get_html()));
-              //layerEnd.bindPopup(popup);
+              layerEnd.bindPopup(popup);
             })
               
           }
         });
 
-      
-       
-       
-        
-
       // Add the layer to the constant map
       layerEnd.addTo(map);
+
+      // Set Map to maximum zoom with the 2 set markers
+      map.fitBounds([
+        [latitudeStart, longitudeStart],
+        [latitudeEnd, longitudeEnd]
+      ]);
 
       // After the first Endpoint is set, the setFirstEndPoint value shall be false forever 
       // (at least, as long as the Website is not refreshed)
