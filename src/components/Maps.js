@@ -1,9 +1,12 @@
+
 import React, { Component } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMapEvent } from 'react-leaflet';
 import "../css/map.css";
+import L, { popup } from 'leaflet';
+import Wiki from './wikiInfo/wiki';
+import ReactDOMServer from "react-dom/server";
 import Leaflet from 'leaflet';
 import {get_location} from '../js/geo2location.js';
-import Wiki from './wikiInfo/wikiInfo.jsx';
 
 /*
   Define global variables
@@ -150,50 +153,51 @@ function MapMarker(props) {
       latitudeEnd = e.latlng["lat"];
       longitudeEnd = e.latlng["lng"];
 
+      // Create a Marker with Leaflet (=Leaflet) with the saved latitude and longitude
+      // and the global options for the Endpoint Marker 
+      layerEnd = Leaflet.marker([latitudeEnd, longitudeEnd], markerOptionsEnd).addTo(map);
+
       // Get Information with latlong from geo2location component
       get_location(longitudeEnd, latitudeEnd)
         .then( (locationdata) => {
-          console.log(locationdata.amenity)
-          if(locationdata.amenity === ""){
-            // SHOW NOTHING
+
+          var locationName = ""
+          // console.log(locationdata)
+          if(locationdata.amenity){
+            locationName = locationdata.amenity
+          } else if(locationdata.town) {
+            locationName = locationdata.town
+          } else if(locationdata.state) {
+            locationName = locationdata.state
           }
-          else{
-            // Place Popup over the End Marker everytime it is set --> Philipp du schafst das!
-            layerEnd.bindPopup(Leaflet.popup().setLatLng([latitudeEnd, longitudeEnd])
-              .setContent("Place WikiInfos here").openOn(map), popupOptionsEnd);
+        // Place Popup over the End Marker everytime it is set --> Philipp du schafst das!
+                // Add a popup to the marker
+          if (props.endtext){
+            var popupProps = {
+              closeButton: true
+            };
+
+            var wiki = new Wiki()
+            var popup = L.popup(popupProps)
+            popup.setContent(ReactDOMServer.renderToString(wiki.get_html()));
+            //layerEnd.bindPopup(popup);
+            wiki.fetchWikipedia(locationName).then(()=>{
+              console.log("Fetching finished")
+              popup.setContent(ReactDOMServer.renderToString(wiki.get_html()));
+              layerEnd.bindPopup(popup);
+            })
+              
           }
         });
+
+      // Add the layer to the constant map
+      layerEnd.addTo(map);
 
       // Set Map to maximum zoom with the 2 set markers
       map.fitBounds([
         [latitudeStart, longitudeStart],
         [latitudeEnd, longitudeEnd]
       ]);
-
-      // Create a Marker with Leaflet (=Leaflet) with the saved latitude and longitude
-      // and the global options for the Endpoint Marker 
-      layerEnd = Leaflet.marker([latitudeEnd, longitudeEnd], markerOptionsEnd).addTo(map);
-
-      // Add a popup to the marker
-      if (props.endtext){
-        var popupProps = {
-          keepInView: false,
-          closeButton: true
-        };
-
-        var wiki = new Wiki()
-        var popup = L.popup(popupProps)
-        popup.setContent(ReactDOMServer.renderToString(wiki.get_html()));
-        layerEnd.bindPopup(popup);
-         wiki.fetchWikipedia("Stuttgart").then(()=>{
-          console.log("Fetching finished")
-          popup.setContent(ReactDOMServer.renderToString(wiki.get_html()));
-          //layerEnd.bindPopup(popup);
-        })
-      }
-
-      // Add the layer to the constant map
-      layerEnd.addTo(map);
 
       // After the first Endpoint is set, the setFirstEndPoint value shall be false forever 
       // (at least, as long as the Website is not refreshed)
@@ -227,9 +231,11 @@ function MapMarker(props) {
     // layer to the Map -> layer is used to be able to delete the marker afterwards
     layerStart = Leaflet.marker([latitudeStart, longitudeStart], markerOptionsStart).addTo(map);
 
+    /* This creates an endless Error Loop
     // Add a popup to the marker
     if (props.starttext)
-      layerStart.bindPopup(Leaflet.popup().setContent(props.starttext), popupOptionsStart);
+      layerStart.bindPopup(Leaflet.popup().setContent(props.starttext).openOn(map), popupOptionsStart);
+    */
 
     layerStart.addTo(map);
 
@@ -272,6 +278,7 @@ class Maps extends React.Component {
                 Active:<br></br>
                 <button id="buttonMarker" className="markerButtons" onClick={setMarkerStart}>Endpoint</button>
               </div>
+            
             <MapContainer id="map" center={[50.0, 9.0]} zoom={13} scrollWheelZoom={true} minZoom={3}>
               <MapMarker starttext={this.state.startPopupText} endtext={this.state.endPopupText}></MapMarker>
               <TileLayer
@@ -279,7 +286,7 @@ class Maps extends React.Component {
                   url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png">
               </TileLayer>
             </MapContainer>
-            <Wiki locationName=""></Wiki>
+            
             </div>
         );
     }
@@ -295,4 +302,6 @@ export default Maps;
     <h1>Philipp ist der coolste!</h1>
   </Popup>
 </Marker>
+<<<<<<< HEAD
+>>>>>>> origin/MapComponent_work
 */

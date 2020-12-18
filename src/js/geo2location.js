@@ -10,4 +10,4 @@ export function get_location(lng, lat) {
                 var data = json.address;
 				return data;
 			})			
-}
+} 
