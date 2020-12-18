@@ -5,13 +5,21 @@ export default class Wiki {
 
     constructor(){
         this.state = {
-        dataLoaded: false,
+        dataLoaded: "not_loaded",
         title: "",
         subtitle: "",
         content: "",
         page_url: ""
         }
     }
+
+    displayError(){
+        this.state = {
+            dataLoaded: "error",
+            title
+        }
+    }
+
     fetchWikipedia(locationName) {
 		// Prepare String (Exchange spaces with '%20' and so on...)
 		var locationNamePrepared = locationName.replace(' ', '%20');
@@ -31,7 +39,8 @@ export default class Wiki {
                         case 200:
                             //First: Let's check if there are any results...
                             if (typeof json.query.search === 'undefined' || json.query.search.length <= 0) {
-                                reject("Error 1");
+                                this.displayError()
+                                resolve();
                             }
                             //Ok, there are results in the array, so we actually found something
                             var pageID = json.query.search[0].pageid;
@@ -57,7 +66,7 @@ export default class Wiki {
                                                 // Write results to state
                                                 this.state = 
                                                     {
-                                                        dataLoaded: true,
+                                                        dataLoaded: "success",
                                                         title: pageTitle,
                                                         subtitle: subtitle,
                                                         content: content,
@@ -67,26 +76,32 @@ export default class Wiki {
                                                 break;
                                                 
                                             default:
-                                                reject("Error 2");
+                                                this.displayError()
+                                                resolve();
                                         }
                                         })
                                         .catch(error => {
-                                        reject("Error 3")
+                                            this.displayError()
+                                            resolve();
                                     });
                                 }).catch(error => {
-                                    reject("Error 4")
+                                    this.displayError()
+                                    resolve();
                                 })
                             break;
                         //Something went wrong
                         default:
-                            reject("Error 5");
+                            this.displayError()
+                            resolve();
                     }
                 })
                 .catch(error => {
-                    reject("Error 6");
+                    this.displayError()
+                    resolve();
                 });
 			}).catch(error => {
-                reject("Error 7")
+                this.displayError()
+                resolve();
             })
 			
 		})
@@ -94,7 +109,7 @@ export default class Wiki {
 
     get_html(){
         let element;
-		if(this.state.dataLoaded){
+		if(this.state.dataLoaded=="loaded"){
 			element = <div>
 				<CardHeader className="header">
                   <div>
@@ -106,12 +121,16 @@ export default class Wiki {
               <p>{this.state.content}</p><p><a target="_blank" className="link external" href={this.state.page_url}>Wikipedia</a></p>
 			  </CardContent>
 			</div>;
-		} else {
+		} else if(this.state.dataLoaded =="not_loaded") {
 			element = <div id="loading_screen">
 				<div id="loading_text">Wikipedia Informationen werden abgerufen</div>
 				<div id="loader"><Preloader></Preloader></div>
 			</div>;
-		}
+		} else if(this.state.dataLoaded =="error"){
+            element = <div>
+                Wikipedia Information konnten nicht abgerufen werden.
+            </div>
+        }
         return (
             <Card>
              {element}
