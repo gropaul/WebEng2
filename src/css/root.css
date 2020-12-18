@@ -1,10 +1,16 @@
 h1{
-    font-size: 27px;
-    font-family: roboto, sans-serif;
+    font-size: 35px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    
+}
+
+.logo{
+    margin-left: 10px;
+    margin-right: 15px;
 }
 
 .ueberschriftRot {
-    margin-left: 10px;
+    
     color: #e2001a;
 }
 
@@ -12,21 +18,13 @@ h1{
     color: #5b6a72;
 }
 
-#container{
-    width: 200px;
-    height: 200px;
-    position: relative;
-    margin: 20px;
+.panel{
+    height: 100%;
+    position: fixed;
 }
-.map{
-    width: 100%;
-    height: 100%;            
-    position: absolute;
-    top: 0;
-    left: 0;
-    opacity: 0.8;  /* for demo purpose  */
-}
+
 .eingabe{
-    z-index: 9;
-    margin: 20px; /* for demo purpose  */
+   width: 50%;
+   height: 10%;
+   background-color: rgb(197, 233, 219);
 }
