@@ -52,6 +52,14 @@ var markerOptionsEnd = {
   icon: iconEnd
 }
 
+var popupOptionsStart = {
+  maxWidth: 256
+}
+
+var popupOptionsEnd = {
+  maxWidth: 512
+}
+
 /*
   Defining the needed functions
 */
@@ -101,7 +109,7 @@ function MapMarker(props) {
 
       // Add a popup to the marker
       if (props.starttext)
-        layerStart.bindPopup(Leaflet.popup().setContent(props.starttext));
+        layerStart.bindPopup(Leaflet.popup().setContent(props.starttext), popupOptionsStart);
 
       // Add the layer to the constant map
       layerStart.addTo(map);
@@ -152,7 +160,7 @@ function MapMarker(props) {
           else{
             // Place Popup over the End Marker everytime it is set --> Philipp du schafst das!
             layerEnd.bindPopup(Leaflet.popup().setLatLng([latitudeEnd, longitudeEnd])
-              .setContent("Place WikiInfos here").openOn(map));
+              .setContent("Place WikiInfos here").openOn(map), popupOptionsEnd);
           }
         });
 
@@ -168,7 +176,7 @@ function MapMarker(props) {
 
       // Add a popup to the marker
       if (props.endtext)
-        layerEnd.bindPopup(Leaflet.popup().setContent(props.endtext));
+        layerEnd.bindPopup(Leaflet.popup().setContent(props.endtext), popupOptionsEnd);
 
       // Add the layer to the constant map
       layerEnd.addTo(map);
@@ -207,7 +215,7 @@ function MapMarker(props) {
 
     // Add a popup to the marker
     if (props.starttext)
-      layerStart.bindPopup(Leaflet.popup().setContent(props.starttext).openOn(map));
+      layerStart.bindPopup(Leaflet.popup().setContent(props.starttext).openOn(map), popupOptionsStart);
 
     layerStart.addTo(map);
 
