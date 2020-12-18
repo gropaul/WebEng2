@@ -3,7 +3,7 @@ import { MapContainer, TileLayer, Marker, Popup, useMapEvent } from 'react-leafl
 import "../css/map.css";
 import Leaflet from 'leaflet';
 import {get_location} from '../js/geo2location.js';
-import WikiInfo from './wikiInfo/wikiInfo.jsx';
+import Wiki from './wikiInfo/wikiInfo.jsx';
 
 /*
   Define global variables
@@ -227,9 +227,11 @@ function MapMarker(props) {
     // layer to the Map -> layer is used to be able to delete the marker afterwards
     layerStart = Leaflet.marker([latitudeStart, longitudeStart], markerOptionsStart).addTo(map);
 
+    /* This creates an endless Error Loop
     // Add a popup to the marker
     if (props.starttext)
       layerStart.bindPopup(Leaflet.popup().setContent(props.starttext).openOn(map), popupOptionsStart);
+    */
 
     layerStart.addTo(map);
 
@@ -279,7 +281,7 @@ class Maps extends React.Component {
                   url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png">
               </TileLayer>
             </MapContainer>
-            <WikiInfo locationName=""></WikiInfo>
+            <Wiki locationName=""></Wiki>
             </div>
         );
     }
