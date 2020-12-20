@@ -184,7 +184,7 @@ function MapMarker(props) {
             wiki.fetchWikipedia(locationName).then(()=>{
               console.log("Fetching finished")
               popup.setContent(ReactDOMServer.renderToString(wiki.get_html()));
-              layerEnd.bindPopup(popup);
+              layerEnd.bindPopup(popup).openPopup();
             })
               
           }
