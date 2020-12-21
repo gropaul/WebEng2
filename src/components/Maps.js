@@ -193,7 +193,6 @@ function MapMarker(props) {
 			
 			var weg = new Weg()
       weg.calcRoute(latitudeStart, longitudeStart, latitudeEnd, longitudeEnd)
-      wait(100)
 			//weg.changeLongLat();
 			var latlngs = weg.getDirectionCoordinates();
 			// console.log(latlngs);
