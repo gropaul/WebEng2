@@ -7,6 +7,7 @@ import Wiki from './wikiInfo/wiki';
 import ReactDOMServer from "react-dom/server";
 import Leaflet from 'leaflet';
 import {get_location} from '../js/geo2location.js';
+import {getGeoJsonElement} from '../js/getgeojsonelement.js';
 
 /*
   Define global variables
@@ -62,6 +63,8 @@ var popupOptionsStart = {
 var popupOptionsEnd = {
   maxWidth: 512
 }
+
+//var arraydef = [emergency, historic, military, natural, landuse, place, railway, man_made, aerialway, boundary, amenity, aeroway, club, craft, leisure, office, mountain_pass, shop, tourism, bridge, tunnel, waterway];
 
 /*
   Defining the needed functions
@@ -161,15 +164,15 @@ function MapMarker(props) {
       get_location(longitudeEnd, latitudeEnd)
         .then( (locationdata) => {
 
-          var locationName = ""
+          var locationName = getGeoJsonElement(locationdata);
           // console.log(locationdata)
-          if(locationdata.amenity){
+          /*if(locationdata.amenity){
             locationName = locationdata.amenity
           } else if(locationdata.town) {
             locationName = locationdata.town
           } else if(locationdata.state) {
             locationName = locationdata.state
-          }
+          }*/
         // Place Popup over the End Marker everytime it is set --> Philipp du schafst das!
                 // Add a popup to the marker
           if (props.endtext){
