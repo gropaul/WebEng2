@@ -12,6 +12,9 @@ class App extends Component {
         <Maps></Maps>
       </div>
     );
+      get_location(
+        
+      )
   }
 }
 
