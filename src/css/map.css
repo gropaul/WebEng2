@@ -1,4 +1,20 @@
 /* required styles */
+#map {
+	position: fixed;
+	
+}
+
+.markerButtons {
+    width: 100%;
+    background-color: rgb(118, 231, 231);
+    color: black;
+    font-family: Calibri;
+    font-size: 15pt;
+}
+
+.divButton {
+    float: right;
+}
 
 
 .markerButtons {

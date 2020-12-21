@@ -9,7 +9,7 @@ export default class Root extends Component {
 	render() {
 		return (
 			<div>
-				<Panel right resizable themeDark>
+				<Panel right resizable themeDark className='panel'>
 					<View>
 						<Page>
 							<Block>Routeninformationen werden hier angezeigt</Block>
@@ -19,6 +19,7 @@ export default class Root extends Component {
 
 				<Navbar>
 					<NavLeft>
+						<img src='../static/icons/dhbw.png' className='logo'></img>
 						<h1 className='ueberschriftRot'>WEB</h1><h1 className='ueberschriftGrau'>ENG II</h1>
 					</NavLeft>
 					<NavRight>
@@ -26,14 +27,14 @@ export default class Root extends Component {
 					</NavRight>
 				</Navbar>
 				<div class='container'>
-					<div id='eingabe'><Card><List inlineLabels noHairlinesMd>
+					<Card className='eingabe'><List inlineLabels noHairlines>
 						<ListInput
 							label="Ziel"
 							type="text"
 							placeholder="Hier das Ziel eingeben"
 							clearButton
 						></ListInput>
-					</List></Card></div>
+					</List></Card>
 
 
 
