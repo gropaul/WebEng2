@@ -192,13 +192,13 @@ function MapMarker(props) {
             })
 			
 			var weg = new Weg()
-			weg.calcRoute(latitudeStart, longitudeStart, latitudeEnd, longitudeEnd)
-			
+      weg.calcRoute(latitudeStart, longitudeStart, latitudeEnd, longitudeEnd)
+      wait(100)
+			//weg.changeLongLat();
 			var latlngs = weg.getDirectionCoordinates();
-			console.log(latlngs);
-			var polyline;
+			// console.log(latlngs);
 
-			polyline = L.polyline((latlngs), {color: 'blue'}).addTo(map);
+      var polyline = L.polyline((latlngs), {color: 'blue'}).addTo(map);
               
           }
         });
