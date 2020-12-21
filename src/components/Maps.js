@@ -2,8 +2,9 @@
 import React, { Component } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMapEvent } from 'react-leaflet';
 import "../css/map.css";
-import L, { popup } from 'leaflet';
+import L, { popup, polyline } from 'leaflet';
 import Wiki from './wikiInfo/wiki';
+import Weg from './weg';
 import ReactDOMServer from "react-dom/server";
 import Leaflet from 'leaflet';
 import {get_location} from '../js/geo2location.js';
@@ -189,6 +190,17 @@ function MapMarker(props) {
               popup.setContent(ReactDOMServer.renderToString(wiki.get_html()));
               layerEnd.bindPopup(popup).openPopup();
             })
+			
+			var weg = new Weg()
+			weg.calcRoute(latitudeStart, longitudeStart, latitudeEnd, longitudeEnd)
+			
+			var latlngs = [
+			[latitudeStart, longitudeStart],
+			[latitudeEnd, longitudeEnd]
+			]
+			var polyline;
+
+			polyline = L.polyline((latlngs), {color: 'blue'}).addTo(map);
               
           }
         });
