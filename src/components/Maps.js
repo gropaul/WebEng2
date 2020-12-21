@@ -194,10 +194,7 @@ function MapMarker(props) {
 			var weg = new Weg()
 			weg.calcRoute(latitudeStart, longitudeStart, latitudeEnd, longitudeEnd)
 			
-			var latlngs = [
-			[latitudeStart, longitudeStart],
-			[latitudeEnd, longitudeEnd]
-			]
+			var latlngs = weg.state.directionCoordinates;
 			var polyline;
 
 			polyline = L.polyline((latlngs), {color: 'blue'}).addTo(map);
