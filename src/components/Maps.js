@@ -5,7 +5,6 @@ import Leaflet, { popup, polyline } from 'leaflet';
 import Wiki from './wikiInfo/wiki';
 import Weg from './weg';
 import ReactDOMServer from "react-dom/server";
-import Leaflet from 'leaflet';
 import {get_location} from '../js/geo2location.js';
 import {getGeoJsonElement} from '../js/getgeojsonelement.js';
 
