@@ -25,7 +25,7 @@ export default class Wiki {
 		// Enter "Loading" Information in state
 
     const MAX_LENGTH = 2000;
-      
+
 		// Fetch Wikipedia API
 		// Step 1: Get title and page URL
 		var responseStatus = 200;
@@ -47,7 +47,7 @@ export default class Wiki {
                             var pageID = json.query.search[0].pageid;
 
                             var pageTitle = json.query.search[0].title;
-
+                        
                             var subtitle = json.query.search[0].snippet;
     
                             //Clean subtitle from html tags
@@ -68,6 +68,7 @@ export default class Wiki {
                                                 // console.log("Subtitle: " + subtitle);
                                                 // console.log("Content: " + content);
                                                 // Write results to state
+
                                             
                                                 //Crop to 2000 letters
                                                 if(content.length > MAX_LENGTH){
@@ -78,6 +79,7 @@ export default class Wiki {
                                                     }
                                                 }
                                                 console.log("Pagetitle laoding");
+
                                                 this.state = 
                                                     {
                                                         dataLoaded: "success",
