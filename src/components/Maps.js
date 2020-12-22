@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMapEvent } from 'react-leaflet';
 import "../css/map.css";
-import L, { popup, polyline } from 'leaflet';
+import Leaflet, { popup, polyline } from 'leaflet';
 import Wiki from './wikiInfo/wiki';
 import Weg from './weg';
 import ReactDOMServer from "react-dom/server";
@@ -32,6 +32,11 @@ var longitudeEnd = 0;
 // Defining two layers, for each layer will contain one marker
 var layerStart;
 var layerEnd;
+
+// Define polyline
+
+var routeLine;
+var setFirstLine = true;
 
 // Defining the icons for Start and Endpoint Marker
 var iconStart = Leaflet.icon({
@@ -182,7 +187,7 @@ function MapMarker(props) {
             };
 
             var wiki = new Wiki()
-            var popup = L.popup(popupProps)
+            var popup = Leaflet.popup(popupProps)
             popup.setContent(ReactDOMServer.renderToString(wiki.get_html()));
             //layerEnd.bindPopup(popup);
             wiki.fetchWikipedia(locationName).then(()=>{
@@ -191,13 +196,20 @@ function MapMarker(props) {
               layerEnd.bindPopup(popup).openPopup();
             })
 			
-			var weg = new Weg()
+      var weg = new Weg()
       weg.calcRoute(latitudeStart, longitudeStart, latitudeEnd, longitudeEnd)
+            .then((directionCordinates)=>{
+              if(setFirstLine===false){
+                routeLine.remove(map);
+              }
+              routeLine = Leaflet.polyline((directionCordinates), {color: 'blue'}).addTo(map);
+              setFirstLine = false;
+            });
 			//weg.changeLongLat();
-			var latlngs = weg.getDirectionCoordinates();
+			//var latlngs = weg.getDirectionCoordinates();
 			// console.log(latlngs);
 
-      var polyline = L.polyline((latlngs), {color: 'blue'}).addTo(map);
+      //var polyline = Leaflet.polyline((latlngs), {color: 'blue'}).addTo(map);
               
           }
         });
