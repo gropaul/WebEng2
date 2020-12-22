@@ -2,11 +2,10 @@
 import React, { Component } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMapEvent } from 'react-leaflet';
 import "../css/map.css";
-import Leaflet, { popup, polyline } from 'leaflet';
+import Leaflet, { popup } from 'leaflet';
 import Wiki from './wikiInfo/wiki';
-import Weg from './weg';
+import Weg from './weg.js';
 import ReactDOMServer from "react-dom/server";
-import Leaflet from 'leaflet';
 import {get_location} from '../js/geo2location.js';
 import {getGeoJsonElement} from '../js/getgeojsonelement.js';
 
@@ -34,9 +33,8 @@ var layerStart;
 var layerEnd;
 
 // Define polyline
-
 var routeLine;
-var setFirstLine = true;
+var setFirstPolLine = true;
 
 // Defining the icons for Start and Endpoint Marker
 var iconStart = Leaflet.icon({
@@ -51,13 +49,13 @@ var iconEnd = Leaflet.icon({
 
 // Defining the options of the Start and Endpoint Marker - make it draggable and give it a title
 var markerOptionsStart = {
-  draggable: true,
+  draggable: false,
   title: "Startpoint",
   icon: iconStart
 }
 
 var markerOptionsEnd = {
-  draggable: true,
+  draggable: false,
   title: "Endpoint",
   icon: iconEnd
 }
@@ -171,16 +169,9 @@ function MapMarker(props) {
         .then( (locationdata) => {
 
           var locationName = getGeoJsonElement(locationdata);
-          // console.log(locationdata)
-          /*if(locationdata.amenity){
-            locationName = locationdata.amenity
-          } else if(locationdata.town) {
-            locationName = locationdata.town
-          } else if(locationdata.state) {
-            locationName = locationdata.state
-          }*/
-        // Place Popup over the End Marker everytime it is set --> Philipp du schafst das!
-                // Add a popup to the marker
+
+          // Place Popup over the End Marker everytime it is set
+          // Add a popup to the marker
           if (props.endtext){
             var popupProps = {
               closeButton: true
@@ -193,24 +184,19 @@ function MapMarker(props) {
             wiki.fetchWikipedia(locationName).then(()=>{
               console.log("Fetching finished")
               popup.setContent(ReactDOMServer.renderToString(wiki.get_html()));
-              layerEnd.bindPopup(popup).openPopup();
-            })
-			
-      var weg = new Weg()
-      weg.calcRoute(latitudeStart, longitudeStart, latitudeEnd, longitudeEnd)
-            .then((directionCordinates)=>{
-              if(setFirstLine===false){
-                routeLine.remove(map);
-              }
-              routeLine = Leaflet.polyline((directionCordinates), {color: 'blue'}).addTo(map);
-              setFirstLine = false;
+              layerEnd.bindPopup(popup).openPopup(); //
             });
-			//weg.changeLongLat();
-			//var latlngs = weg.getDirectionCoordinates();
-			// console.log(latlngs);
-
-      //var polyline = Leaflet.polyline((latlngs), {color: 'blue'}).addTo(map);
-              
+          
+          var weg = new Weg();
+          weg.calcRoute(latitudeStart, longitudeStart, latitudeEnd, longitudeEnd)
+                .then((directionCordinates)=>{
+                  if(setFirstPolLine === false){
+                    routeLine.remove(map);
+                  }
+                  routeLine = Leaflet.polyline((directionCordinates), {color: 'blue'}).addTo(map);
+                  map.fitBounds(routeLine.getBounds());
+                  setFirstPolLine = false;
+                });
           }
         });
 
@@ -218,10 +204,10 @@ function MapMarker(props) {
       layerEnd.addTo(map);
 
       // Set Map to maximum zoom with the 2 set markers
-      map.fitBounds([
-        [latitudeStart, longitudeStart],
-        [latitudeEnd, longitudeEnd]
-      ]);
+      //map.fitBounds([
+        //[latitudeStart, longitudeStart],
+        //[latitudeEnd, longitudeEnd]
+      //]);
 
       // After the first Endpoint is set, the setFirstEndPoint value shall be false forever 
       // (at least, as long as the Website is not refreshed)
