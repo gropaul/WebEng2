@@ -1,4 +1,3 @@
-
 import React, { Component } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMapEvent } from 'react-leaflet';
 import "../css/map.css";
@@ -180,13 +179,14 @@ function MapMarker(props) {
 
             var wiki = new Wiki()
             var popup = Leaflet.popup(popupProps);
+
             //layerEnd.bindPopup(popup);
             wiki.fetchWikipedia(locationName).then(()=>{
               console.log("Fetching finished")
               popup.setContent(ReactDOMServer.renderToString(wiki.get_html()));
-
               layerEnd.bindPopup(popup).openPopup(); //
             });
+          
           var weg = new Weg();
           weg.calcRoute(latitudeStart, longitudeStart, latitudeEnd, longitudeEnd)
                 .then((directionCordinates)=>{
@@ -303,13 +303,3 @@ class Maps extends React.Component {
 }
 
 export default Maps;
-
-/*
-
-
-<Marker position={[47.665217, 9.447650]} style="background-color: red">
-  <Popup>
-    <h1>Philipp ist der coolste! lol</h1>
-  </Popup>
-</Marker>
-*/

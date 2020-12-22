@@ -13,7 +13,7 @@ class Weg extends Component {
         this.calcRoute = this.calcRoute.bind(this);
 
 	}
-  
+
 	changeLongLat(){
 		for (var i=0; i < directionCoordinates.length; i++) {
 			var x = directionCoordinates[i][0];
@@ -21,7 +21,6 @@ class Weg extends Component {
 			directionCoordinates[i][1] =  x;
 		}
 	}
-
 	calcRoute(startLatitude, startLongitude, endLatitude, endLongitude) {
 		var url = "https://api.openrouteservice.org/v2/directions/driving-car?api_key=5b3ce3597851110001cf6248325551c86d55441f8d7e5d496d06a201&start="+ startLongitude + "," + startLatitude +"&end="+ endLongitude +","+ endLatitude +""
 
@@ -33,5 +32,7 @@ class Weg extends Component {
 				return directionCoordinates;
 			});
 		}
+	
+	
 }
 export default Weg;

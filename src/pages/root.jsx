@@ -8,6 +8,7 @@ export default class Root extends Component {
 
 	render() {
 		return (
+
 			<div className='body'>
 				<Panel right resizable themeDark className='panel'>
 					<View>
@@ -20,6 +21,7 @@ export default class Root extends Component {
 
 				<Navbar>
 					<NavLeft>
+
 						<img src='../static/icons/dhbw.png' className='logo' alt="DHBW"></img>
 						<h1 className='ueberschriftRot'>WEB</h1><h1 className='ueberschriftGrau'>ENG II</h1>
 					</NavLeft>
