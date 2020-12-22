@@ -1,4 +1,3 @@
-
 import React, { Component } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMapEvent } from 'react-leaflet';
 import "../css/map.css";
@@ -196,13 +195,20 @@ function MapMarker(props) {
               layerEnd.bindPopup(popup).openPopup();
             })
 			
-			var weg = new Weg()
+      var weg = new Weg()
       weg.calcRoute(latitudeStart, longitudeStart, latitudeEnd, longitudeEnd)
+            .then((directionCordinates)=>{
+              if(setFirstLine===false){
+                routeLine.remove(map);
+              }
+              routeLine = Leaflet.polyline((directionCordinates), {color: 'blue'}).addTo(map);
+              setFirstLine = false;
+            });
 			//weg.changeLongLat();
-			var latlngs = weg.getDirectionCoordinates();
+			//var latlngs = weg.getDirectionCoordinates();
 			// console.log(latlngs);
 
-      var polyline = L.polyline((latlngs), {color: 'blue'}).addTo(map);
+      //var polyline = Leaflet.polyline((latlngs), {color: 'blue'}).addTo(map);
               
           }
         });
@@ -312,8 +318,6 @@ class Maps extends React.Component {
 export default Maps;
 
 /*
-
-
 <Marker position={[47.665217, 9.447650]} style="background-color: red">
   <Popup>
     <h1>Philipp ist der coolste!</h1>
