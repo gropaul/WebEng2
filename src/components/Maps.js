@@ -2,10 +2,9 @@
 import React, { Component } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMapEvent } from 'react-leaflet';
 import "../css/map.css";
-import L, { popup } from 'leaflet';
+import Leaflet, { popup } from 'leaflet';
 import Wiki from './wikiInfo/wiki';
 import ReactDOMServer from "react-dom/server";
-import Leaflet from 'leaflet';
 import {get_location} from '../js/geo2location.js';
 import {getGeoJsonElement} from '../js/getgeojsonelement.js';
 
@@ -181,7 +180,7 @@ function MapMarker(props) {
             };
 
             var wiki = new Wiki()
-            var popup = L.popup(popupProps)
+            var popup = Leaflet.popup(popupProps)
             popup.setContent(ReactDOMServer.renderToString(wiki.get_html()));
             //layerEnd.bindPopup(popup);
             wiki.fetchWikipedia(locationName).then(()=>{
