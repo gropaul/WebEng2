@@ -7,7 +7,8 @@ export function get_location(lng, lat) {
 			}).
 			then(function(json) {
 
-                var data = json.address;
+				var data = json.address;
+				console.log(data)
 				return data;
 			})			
 } 

@@ -23,7 +23,9 @@ export default class Wiki {
 		// Prepare String (Exchange spaces with '%20' and so on...)
 		var locationNamePrepared = locationName.replace(' ', '%20');
 		// Enter "Loading" Information in state
-        const MAX_LENGTH = 2000;
+
+    const MAX_LENGTH = 2000;
+      
 		// Fetch Wikipedia API
 		// Step 1: Get title and page URL
 		var responseStatus = 200;
@@ -43,9 +45,9 @@ export default class Wiki {
                             }
                             //Ok, there are results in the array, so we actually found something
                             var pageID = json.query.search[0].pageid;
-                            
+
                             var pageTitle = json.query.search[0].title;
-                            
+
                             var subtitle = json.query.search[0].snippet;
     
                             //Clean subtitle from html tags
@@ -60,14 +62,13 @@ export default class Wiki {
                                     response.json().then(json => {
                                         switch (responseStatus) {
                                             case 200:
-                                                
                                                 var content = json.query.pages[pageID].extract;
-                                                
+
                                                 // console.log("Title: " + pageTitle);
                                                 // console.log("Subtitle: " + subtitle);
                                                 // console.log("Content: " + content);
                                                 // Write results to state
-
+                                            
                                                 //Crop to 2000 letters
                                                 if(content.length > MAX_LENGTH){
                                                     content = content.substring(0,MAX_LENGTH);
@@ -85,7 +86,7 @@ export default class Wiki {
                                                         content: content,
                                                         page_url: "https://de.wikipedia.org/wiki/"+pageTitle
                                                     }
-                                                
+
                                                 resolve("Success");
                                                 break;
                                                 

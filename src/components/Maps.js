@@ -1,4 +1,3 @@
-
 import React, { Component } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMapEvent } from 'react-leaflet';
 import "../css/map.css";
@@ -305,13 +304,9 @@ class Maps extends React.Component {
 export default Maps;
 
 /*
-
-
 <Marker position={[47.665217, 9.447650]} style="background-color: red">
   <Popup>
     <h1>Philipp ist der coolste!</h1>
   </Popup>
 </Marker>
-<<<<<<< HEAD
->>>>>>> origin/MapComponent_work
 */
