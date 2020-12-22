@@ -196,20 +196,13 @@ function MapMarker(props) {
               layerEnd.bindPopup(popup).openPopup();
             })
 			
-      var weg = new Weg()
+			var weg = new Weg()
       weg.calcRoute(latitudeStart, longitudeStart, latitudeEnd, longitudeEnd)
-            .then((directionCordinates)=>{
-              if(setFirstLine===false){
-                routeLine.remove(map);
-              }
-              routeLine = Leaflet.polyline((directionCordinates), {color: 'blue'}).addTo(map);
-              setFirstLine = false;
-            });
 			//weg.changeLongLat();
-			//var latlngs = weg.getDirectionCoordinates();
+			var latlngs = weg.getDirectionCoordinates();
 			// console.log(latlngs);
 
-      //var polyline = Leaflet.polyline((latlngs), {color: 'blue'}).addTo(map);
+      var polyline = L.polyline((latlngs), {color: 'blue'}).addTo(map);
               
           }
         });
