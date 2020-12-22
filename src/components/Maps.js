@@ -174,12 +174,12 @@ function MapMarker(props) {
           // Add a popup to the marker
           if (props.endtext){
             var popupProps = {
-              closeButton: true
+              closeButton: true,
+              autoPan: false
             };
 
             var wiki = new Wiki()
-            var popup = Leaflet.popup(popupProps)
-            popup.setContent(ReactDOMServer.renderToString(wiki.get_html()));
+            var popup = Leaflet.popup(popupProps);
             //layerEnd.bindPopup(popup);
             wiki.fetchWikipedia(locationName).then(()=>{
               console.log("Fetching finished")
