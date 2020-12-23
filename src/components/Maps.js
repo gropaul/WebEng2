@@ -252,7 +252,7 @@ export function setEndInputMarker(endInput){
     get_location(longitudeEnd, latitudeEnd)
     .then( (locationdata) => {
       if(locationdata === undefined){
-        window.alert("No location at set marker!");
+        window.alert("No location with this name found!");
       }
       else{
         // The layer of the Endpoint shall only be removed, if a Marker is already set
