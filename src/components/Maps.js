@@ -212,27 +212,31 @@ function MapMarker(props) {
     }
   });
   
-  // This part is called on the initialization of the map
-  // It fetches the users location via navigator and sets the Maps center
-  // to this location
-  navigator.geolocation.getCurrentPosition(function(position) {
-    
-    // Save Startpoint Coordinates
-    latitudeStart = position.coords.latitude;
-    longitudeStart = position.coords.longitude;
+  if(setFirstStartPoint){
+    // This part is called on the initialization of the map
+    // It fetches the users location via navigator and sets the Maps center
+    // to this location
+    navigator.geolocation.getCurrentPosition(function(position) {
+      
+      // Save Startpoint Coordinates
+      latitudeStart = position.coords.latitude;
+      longitudeStart = position.coords.longitude;
 
-    // Set Map Center to the Startpoint Coordinates
-    map.flyTo([latitudeStart, longitudeStart]);
+      // Set Map Center to the Startpoint Coordinates
+      map.flyTo([latitudeStart, longitudeStart]);
 
-    // Place Marker on the Map, by adding it to the layer layerStart and adding the
-    // layer to the Map -> layer is used to be able to delete the marker afterwards
-    layerStart = Leaflet.marker([latitudeStart, longitudeStart], markerOptionsStart).addTo(map);
+      // Place Marker on the Map, by adding it to the layer layerStart and adding the
+      // layer to the Map -> layer is used to be able to delete the marker afterwards
+      layerStart = Leaflet.marker([latitudeStart, longitudeStart], markerOptionsStart).addTo(map);
 
-    layerStart.addTo(map);
+      layerStart.addTo(map);
 
-    // For debug purposes, console log the Coordinates of the starting Point
-    //console.log([latitudeStart, longitudeStart]);
-  });
+      // For debug purposes, console log the Coordinates of the starting Point
+      //console.log([latitudeStart, longitudeStart]);
+
+      setFirstStartPoint = false;
+    });
+  }
 
   return null;
 }
