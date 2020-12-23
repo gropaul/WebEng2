@@ -193,7 +193,7 @@ function MapMarker(props) {
               popup.setContent(ReactDOMServer.renderToString(wiki.get_html()));
               layerEnd.bindPopup(popup).openPopup();
             })
-			
+			// Draw route to map
       var weg = new Weg()
       weg.calcRoute(latitudeStart, longitudeStart, latitudeEnd, longitudeEnd)
             .then((directionCordinates)=>{
@@ -202,13 +202,7 @@ function MapMarker(props) {
               }
               routeLine = Leaflet.polyline((directionCordinates), {color: 'blue'}).addTo(map);
               setFirstLine = false;
-            });
-			//weg.changeLongLat();
-			//var latlngs = weg.getDirectionCoordinates();
-			// console.log(latlngs);
-
-      //var polyline = Leaflet.polyline((latlngs), {color: 'blue'}).addTo(map);
-              
+            });  
           }
         });
 

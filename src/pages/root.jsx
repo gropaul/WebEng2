@@ -12,7 +12,7 @@ export default class Root extends Component {
 				<Panel right resizable themeDark className='panel'>
 					<View>
 						<Page>
-							<Block>Routeninformationen werden hier angezeigt</Block>
+							<Block id="rootBlock">Routeninformationen werden hier angezeigt</Block>
 						</Page>
 					</View>
 				</Panel>
