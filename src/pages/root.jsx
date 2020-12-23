@@ -5,6 +5,23 @@ import '../css/root.css';
 
 
 export default class Root extends Component {
+	constructor(){
+		super();
+		this.state = {
+			endInput: ""
+		  }
+	}
+
+	handleEndInputChanged(event) {
+		// Update the state object
+		this.setState({
+			endInput: event.target.value
+		});
+	}
+
+	handleEndInputClicked(event){
+		console.log(this.state.endInput);
+	}
 
 	render() {
 		return (
@@ -33,11 +50,13 @@ export default class Root extends Component {
 					<Card className='eingabe'>
 						<List inlineLabels noHairlines>
 							<ListInput
+								onChange={this.handleEndInputChanged.bind(this)}
 								label="Ziel"
 								type="text"
 								placeholder="Hier das Ziel eingeben"
 								clearButton
 							></ListInput>
+							<button onClick={this.handleEndInputClicked.bind(this)}>Search</button>
 						</List>
 					</Card>
 					<div id='map'><Maps></Maps></div>
