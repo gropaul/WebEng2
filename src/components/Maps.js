@@ -46,7 +46,7 @@ var iconEnd = Leaflet.icon({
   iconSize: [30, 30]
 });
 
-// Defining the options of the Start and Endpoint Marker - make it draggable and give it a title
+// Defining the options of the Start and Endpoint Marker - make it not draggable and give it a title and an icon
 var markerOptionsStart = {
   draggable: false,
   title: "Startpoint",
@@ -66,8 +66,6 @@ var popupOptionsStart = {
 var popupOptionsEnd = {
   maxWidth: 512
 }
-
-//var arraydef = [emergency, historic, military, natural, landuse, place, railway, man_made, aerialway, boundary, amenity, aeroway, club, craft, leisure, office, mountain_pass, shop, tourism, bridge, tunnel, waterway];
 
 /*
   Defining the needed functions
@@ -148,47 +146,48 @@ function MapMarker(props) {
     // --------------------------------------------------------------------------------------------------------
     // Set Endpoint function
     else{
-      // The layer of the Endpoint shall only be removed, if a Marker is already set
-      // If no Marker is set and the layer is removed, the Component crashes
-      if(setFirstEndPoint === false){
-        layerEnd.remove();
-      }
-
       // Get the latitude and longitude from the mouseclick event
       // The coordinates are stored in the Leaflet variable "latlng" as a JSON Object
       latitudeEnd = e.latlng["lat"];
       longitudeEnd = e.latlng["lng"];
 
-      // Create a Marker with Leaflet (=Leaflet) with the saved latitude and longitude
-      // and the global options for the Endpoint Marker 
-      layerEnd = Leaflet.marker([latitudeEnd, longitudeEnd], markerOptionsEnd).addTo(map);
-
       // Get Information with latlong from geo2location component
       get_location(longitudeEnd, latitudeEnd)
         .then( (locationdata) => {
+          if(locationdata === undefined){
+            window.alert("No location at set marker!");
+          }
+          else{
+            // The layer of the Endpoint shall only be removed, if a Marker is already set
+            // If no Marker is set and the layer is removed, the Component crashes
+            if(setFirstEndPoint === false){
+              layerEnd.remove();
+            }
 
-          var locationName = getGeoJsonElement(locationdata);
+            // Create a Marker with Leaflet (=Leaflet) with the saved latitude and longitude
+            // and the global options for the Endpoint Marker 
+            layerEnd = Leaflet.marker([latitudeEnd, longitudeEnd], markerOptionsEnd).addTo(map);
 
-          // Place Popup over the End Marker everytime it is set
-          // Add a popup to the marker
-          if (props.endtext){
-            var popupProps = {
-              closeButton: true,
-              autoPan: false
-            };
+            var locationName = getGeoJsonElement(locationdata);
 
-            var wiki = new Wiki()
-            var popup = Leaflet.popup(popupProps);
+            if (props.endtext){
+              var popupProps = {
+                closeButton: true,
+                autoPan: false
+              };
+  
+              var wiki = new Wiki()
+              var popup = Leaflet.popup(popupProps);
+  
+              wiki.fetchWikipedia(locationName).then(()=>{
+                popup.setContent(ReactDOMServer.renderToString(wiki.get_html()));
+                // Place Popup over the End Marker everytime it is set
+                // Add a popup to the marker
+                layerEnd.bindPopup(popup).openPopup();
+              });
 
-            //layerEnd.bindPopup(popup);
-            wiki.fetchWikipedia(locationName).then(()=>{
-              console.log("Fetching finished")
-              popup.setContent(ReactDOMServer.renderToString(wiki.get_html()));
-              layerEnd.bindPopup(popup).openPopup(); //
-            });
-          
-          var weg = new Weg();
-          weg.calcRoute(latitudeStart, longitudeStart, latitudeEnd, longitudeEnd)
+              var weg = new Weg();
+              weg.calcRoute(latitudeStart, longitudeStart, latitudeEnd, longitudeEnd)
                 .then((directionCordinates)=>{
                   if(setFirstPolLine === false){
                     routeLine.remove(map);
@@ -197,31 +196,19 @@ function MapMarker(props) {
                   map.fitBounds(routeLine.getBounds());
                   setFirstPolLine = false;
                 });
+
+              // Add the layer to the constant map
+              layerEnd.addTo(map);
+
+              // After the first Endpoint is set, the setFirstEndPoint value shall be false forever 
+              // (at least, as long as the Website is not refreshed)
+              // Also the setStartPoint value is set true, to switch to the Startpoint
+              // As long as the markersButton is not clicked, the next if-Loop will end up
+              // in the if(setStartPoint) Statement
+              setFirstEndPoint = false;
+            }
           }
         });
-
-      // Add the layer to the constant map
-      layerEnd.addTo(map);
-
-      // Set Map to maximum zoom with the 2 set markers
-      //map.fitBounds([
-        //[latitudeStart, longitudeStart],
-        //[latitudeEnd, longitudeEnd]
-      //]);
-
-      // After the first Endpoint is set, the setFirstEndPoint value shall be false forever 
-      // (at least, as long as the Website is not refreshed)
-      // Also the setStartPoint value is set true, to switch to the Startpoint
-      // As long as the markersButton is not clicked, the next if-Loop will end up
-      // in the if(setStartPoint) Statement
-      setFirstEndPoint = false;
-
-      //setStartPoint = true;
-
-      // The Buttons text will switch to "Startpoint"
-      // The button will always display the active Marker
-      
-      //document.getElementById("buttonMarker").innerHTML = "Startpoint";
     }
   });
   
@@ -240,12 +227,6 @@ function MapMarker(props) {
     // Place Marker on the Map, by adding it to the layer layerStart and adding the
     // layer to the Map -> layer is used to be able to delete the marker afterwards
     layerStart = Leaflet.marker([latitudeStart, longitudeStart], markerOptionsStart).addTo(map);
-
-    /* This creates an endless Error Loop
-    // Add a popup to the marker
-    if (props.starttext)
-      layerStart.bindPopup(Leaflet.popup().setContent(props.starttext).openOn(map), popupOptionsStart);
-    */
 
     layerStart.addTo(map);
 
