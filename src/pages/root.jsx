@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Page, List, ListInput, Navbar, View, Panel, Block, Button, NavRight, NavLeft, Card } from 'framework7-react';
 import Maps from '../components/Maps';
 import '../css/root.css';
+import {setEndInputMarker} from '../components/Maps';
 
 
 export default class Root extends Component {
@@ -20,6 +21,7 @@ export default class Root extends Component {
 	}
 
 	handleEndInputClicked(event){
+		setEndInputMarker(this.state.endInput);
 		console.log(this.state.endInput);
 	}
 

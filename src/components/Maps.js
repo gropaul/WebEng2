@@ -6,11 +6,13 @@ import Wiki from './wikiInfo/wiki';
 import Weg from './weg.js';
 import ReactDOMServer from "react-dom/server";
 import {get_location} from '../js/geo2location.js';
+import {ort2geo} from '../js/location2geo.js';
 import {getGeoJsonElement} from '../js/getgeojsonelement.js';
 
 /*
   Define global variables
 */
+var map;
 
 // Defining booleans, which check, if a marker has been set yet
 var setFirstStartPoint = true;
@@ -67,6 +69,11 @@ var popupOptionsEnd = {
   maxWidth: 512
 }
 
+var popupProps = {
+  closeButton: true,
+  autoPan: false
+};
+
 /*
   Defining the needed functions
 */
@@ -94,7 +101,7 @@ function MapMarker(props) {
   // Create a constant map, which contains a useMapEvent (those are defined by Leaflet)
   // which will be triggered when a mouseclick on the map happens
   // "Map" is linked to the MapContainer, which the function MapMarker is assigned to
-  const map = useMapEvent('click', (e) => {
+  map = useMapEvent('click', (e) => {
 
     // Check if the Startpoint should be set, or the Endpoint
     // If "setStartPoint" value is true, the Startpoint can be set, 
@@ -171,10 +178,6 @@ function MapMarker(props) {
             var locationName = getGeoJsonElement(locationdata);
 
             if (props.endtext){
-              var popupProps = {
-                closeButton: true,
-                autoPan: false
-              };
   
               var wiki = new Wiki()
               var popup = Leaflet.popup(popupProps);
@@ -239,6 +242,64 @@ function MapMarker(props) {
   }
 
   return null;
+}
+
+export function setEndInputMarker(endInput){
+  ort2geo(endInput).then ((latlong) => {
+    latitudeEnd = latlong.latitude;
+    longitudeEnd = latlong.longitude;
+
+    get_location(longitudeEnd, latitudeEnd)
+    .then( (locationdata) => {
+      if(locationdata === undefined){
+        window.alert("No location at set marker!");
+      }
+      else{
+        // The layer of the Endpoint shall only be removed, if a Marker is already set
+        // If no Marker is set and the layer is removed, the Component crashes
+        if(setFirstEndPoint === false){
+          layerEnd.remove();
+        }
+
+        // Create a Marker with Leaflet (=Leaflet) with the saved latitude and longitude
+        // and the global options for the Endpoint Marker 
+        layerEnd = Leaflet.marker([latitudeEnd, longitudeEnd], markerOptionsEnd).addTo(map);
+
+        var locationName = getGeoJsonElement(locationdata);
+
+          var wiki = new Wiki()
+          var popup = Leaflet.popup(popupProps);
+
+          wiki.fetchWikipedia(locationName).then(()=>{
+            popup.setContent(ReactDOMServer.renderToString(wiki.get_html()));
+            // Place Popup over the End Marker everytime it is set
+            // Add a popup to the marker
+            layerEnd.bindPopup(popup).openPopup();
+          });
+
+          var weg = new Weg();
+          weg.calcRoute(latitudeStart, longitudeStart, latitudeEnd, longitudeEnd)
+            .then((directionCordinates)=>{
+              if(setFirstPolLine === false){
+                routeLine.remove(map);
+              }
+              routeLine = Leaflet.polyline((directionCordinates), {color: 'blue'}).addTo(map);
+              map.fitBounds(routeLine.getBounds());
+              setFirstPolLine = false;
+            });
+
+          // Add the layer to the constant map
+          layerEnd.addTo(map);
+
+          // After the first Endpoint is set, the setFirstEndPoint value shall be false forever 
+          // (at least, as long as the Website is not refreshed)
+          // Also the setStartPoint value is set true, to switch to the Startpoint
+          // As long as the markersButton is not clicked, the next if-Loop will end up
+          // in the if(setStartPoint) Statement
+          setFirstEndPoint = false;
+      }
+    });
+  });
 }
 
 /*
