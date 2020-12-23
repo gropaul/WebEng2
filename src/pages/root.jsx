@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Page, List, ListInput, Navbar, View, Panel, Block, Button, NavRight, NavLeft, Card, CardContent } from 'framework7-react';
+import { Page, List, ListInput, Navbar, View, Panel, Block, Button, NavRight, NavLeft, Card } from 'framework7-react';
 import Maps from '../components/Maps';
 import '../css/root.css';
 
@@ -8,10 +8,12 @@ export default class Root extends Component {
 
 	render() {
 		return (
-			<div>
+
+			<div className='body'>
 				<Panel right resizable themeDark className='panel'>
 					<View>
 						<Page>
+              <a href="#" class="panel-close"><i class='icon f7-icons'>xmark_circle</i></a>
 							<Block id="rootBlock">Routeninformationen werden hier angezeigt</Block>
 						</Page>
 					</View>
@@ -19,25 +21,25 @@ export default class Root extends Component {
 
 				<Navbar>
 					<NavLeft>
-						<img src='../static/icons/dhbw.png' className='logo'></img>
+
+						<img src='../static/icons/dhbw.png' className='logo' alt="DHBW"></img>
 						<h1 className='ueberschriftRot'>WEB</h1><h1 className='ueberschriftGrau'>ENG II</h1>
 					</NavLeft>
 					<NavRight>
-						<Button panelOpen="right">Routeninfos</Button>
+						<Button className='button_route' panelOpen="right">Routeninfos</Button>
 					</NavRight>
 				</Navbar>
 				<div class='container'>
-					<Card className='eingabe'><List inlineLabels noHairlines>
-						<ListInput
-							label="Ziel"
-							type="text"
-							placeholder="Hier das Ziel eingeben"
-							clearButton
-						></ListInput>
-					</List></Card>
-
-
-
+					<Card className='eingabe'>
+						<List inlineLabels noHairlines>
+							<ListInput
+								label="Ziel"
+								type="text"
+								placeholder="Hier das Ziel eingeben"
+								clearButton
+							></ListInput>
+						</List>
+					</Card>
 					<div id='map'><Maps></Maps></div>
 				</div>
 			</div>

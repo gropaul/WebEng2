@@ -16,7 +16,6 @@ class Weg extends Component {
         this.state = {
             directionSteps: ""
         }
-
     }
 
     changeLongLat(){
