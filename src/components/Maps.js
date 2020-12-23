@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMapEvent } from 'react-leaflet';
 import "../css/map.css";
-import Leaflet, { popup } from 'leaflet';
+import Leaflet, { popup, polyline } from 'leaflet';
 import Wiki from './wikiInfo/wiki';
 import Weg from './weg.js';
 import ReactDOMServer from "react-dom/server";
@@ -36,6 +36,7 @@ var layerEnd;
 // Define polyline
 var routeLine;
 var setFirstPolLine = true;
+
 
 // Defining the icons for Start and Endpoint Marker
 var iconStart = Leaflet.icon({
@@ -347,5 +348,4 @@ class Maps extends React.Component {
         );
     }
 }
-
 export default Maps;

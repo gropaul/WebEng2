@@ -32,8 +32,8 @@ export default class Root extends Component {
 				<Panel right resizable themeDark className='panel'>
 					<View>
 						<Page>
-							<a href="#" class="panel-close"><i class='icon f7-icons'>xmark_circle</i></a>
-							<Block>Routeninformationen werden hier angezeigt</Block>
+              <a href="#" class="panel-close"><i class='icon f7-icons'>xmark_circle</i></a>
+							<Block id="rootBlock">Routeninformationen werden hier angezeigt</Block>
 						</Page>
 					</View>
 				</Panel>
