@@ -85,10 +85,15 @@ Attribute:
         "country_code":"de"
 }
 ```
-Wichtig: "amenity" ist nur manchmal vorhanden!
+Wichtig: "amenity" ist nur manchmal vorhanden! <br>
+
 2.      location2geo.js <br>
 Input: get_geo(String Datenstruktur: json) <br>
 Attribute: Straße, Hausnummer, Postleitzahl <br>
+Output: String Datenstruktur: json <br>
+
+Input: ort2geo(String Datenstruktur: json) <br>
+Attribute: Ortname <br>
 Output: String Datenstruktur: json <br>
 
 Attribute:
