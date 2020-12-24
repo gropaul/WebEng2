@@ -35,9 +35,30 @@ h1{
 
 .eingabe{
     background-color: rgb(197, 233, 219);
-    z-index: 9;
-    margin: 20px; /* for demo purpose  */
+    margin: 15px;
  }
+
+ .ziel {
+     width: 80%;
+ }
+
+ .btnEingabe {
+    align-self: center;
+    display: inline-block;
+    border-radius: 4px;
+    background-color: #e2001a;
+    border: none;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 80%;
+    width: 15%;
+    height: 30px;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 5px;
+  }
+  
+ 
 
 @media only screen and (max-width: 500px) {
     /* For mobile phones: */
@@ -54,7 +75,7 @@ h1{
     /* For mobile phones: */
     .eingabe{
         height: 10%;
-        margin-right: 8px;
+        margin: 8px;
      }
   }
 
