@@ -2,10 +2,7 @@ import React, { Component } from 'react';
 import Openrouteservice from 'openrouteservice-js';
 import rootJSX from '../pages/root'
 
-var directionList= [];
 var directionCoordinates= [];
-var duration= '';
-var distance= '';
 
 class Weg extends Component {
 
@@ -18,6 +15,7 @@ class Weg extends Component {
         }
     }
 
+	//change Lonitude and Latitude, since thew are given back in the wrong order
     changeLongLat(){
         for (var i=0; i < directionCoordinates.length; i++) {
             var x = directionCoordinates[i][0];
@@ -39,6 +37,7 @@ class Weg extends Component {
             format: "json",
             api_version: 'v2',
         })
+		//Extract the important information from the JSON
             .then(function (json) {
                 let apiresponse = JSON.stringify(json, null, "\t")
                 var obj = JSON.parse(apiresponse);
