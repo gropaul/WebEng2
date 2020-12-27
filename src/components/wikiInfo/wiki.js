@@ -18,6 +18,22 @@ export default class Wiki {
             dataLoaded: "error"
         }
     }
+	
+	doesSiteHaveCategory(pageID, categorySearch) {
+		url = "https://de.wikipedia.org/w/api.php?action=query&generator=categories&prop=categories&redirects=1&pageids=" + pageID + "&origin=*&format=json";
+		response = fetch(url);
+		response = response.json();
+		var payload = response.query;
+		var pages = payload.pages;
+		for (var entryKey in pages) {
+			var page = pages[entryKey]
+			var title = page.pageid;
+			if (title.toLowerCase().includes(categorySearch.toLowerCase())) {
+				return true;
+			}
+		}
+		return false;
+	}
 
     fetchWikipedia(locationName) {
 		// Prepare String (Exchange spaces with '%20' and so on...)
@@ -42,13 +58,22 @@ export default class Wiki {
                             if (typeof json.query.search === 'undefined' || json.query.search.length <= 0) {
                                 this.displayError()
                                 resolve();
-                            }
+                            }						
+							
                             //Ok, there are results in the array, so we actually found something
-                            var pageID = json.query.search[0].pageid;
+							var resultIndex = 0;
+                            var pageID = json.query.search[resultIndex].pageid;
+							while (!doesSiteHaveCategory(pageID, "Ort") && resultIndex < json.query.search.length) {
+								resultIndex++;
+								pageID = json.query.search[resultIndex].pageid;
+							}
+							if(resultIndex >= json.query.search.length) {
+								//TODO: Print out that we couldn't find a location
+							}
 
-                            var pageTitle = json.query.search[0].title;
+                            var pageTitle = json.query.search[resultIndex].title;
                         
-                            var subtitle = json.query.search[0].snippet;
+                            var subtitle = json.query.search[resultIndex].snippet;
     
                             //Clean subtitle from html tags
                             //The used regular expression removes every character that is not '<' or '>' between a '<' and a '>' or '$' (can have a leading '/', but that's optional)
