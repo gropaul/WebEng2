@@ -35,16 +35,13 @@ Discord: https://discord.gg/Ve863Wzdnq
 
 ### Karte
 <b>Folgende Installationen ausführen:</b><br/><br/>
+npm install<br/>
 npm install react-redux<br/>
 npm install react@^17.0.1 --save<br/>
 npm install react-dom@^17.0.1 --save<br/>
 npm install leaflet@^1.7.1 --save<br/>
 npm install react-leaflet@^3.0.2 --save<br/>
-npm i leaflet<br/>
-npm i react-leaflet<br/>
-npm install<br/>
-npm update<br/>
-npm audit fix<br/>
+npm install openrouteservice-js --save<br/>
 
 <b>Komponente:</b><br/>Maps<br/>
 <b>Koordinaten:</b>     <br/>latitudeStart
@@ -84,10 +81,15 @@ Attribute:
         "country_code":"de"
 }
 ```
-Wichtig: "amenity" ist nur manchmal vorhanden!
+Wichtig: "amenity" ist nur manchmal vorhanden! <br>
+
 2.      location2geo.js <br>
 Input: get_geo(String Datenstruktur: json) <br>
 Attribute: Straße, Hausnummer, Postleitzahl <br>
+Output: String Datenstruktur: json <br>
+
+Input: ort2geo(String Datenstruktur: json) <br>
+Attribute: Ortname <br>
 Output: String Datenstruktur: json <br>
 
 Attribute:
@@ -187,6 +189,8 @@ export default Container;
 #### Schnittstellenbeschreibung
 
 ### Routenplaner
+<b>Folgende Installationen ausführen:</b><br/><br/>
+npm install openrouteservice-js --save
 
 Genutztes Tool: OpenRouteService-API
 
