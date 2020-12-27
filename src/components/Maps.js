@@ -247,6 +247,9 @@ function MapMarker(props) {
 
 export function setEndInputMarker(endInput){
   ort2geo(endInput).then ((latlong) => {
+    if(latlong === undefined){
+      window.alert("No location with this name found!");
+    }
     latitudeEnd = latlong.latitude;
     longitudeEnd = latlong.longitude;
 

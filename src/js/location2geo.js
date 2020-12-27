@@ -1,3 +1,4 @@
+import { popup } from "leaflet";
 
 function get_geo(str, hausnummer, plz) {
 
@@ -26,7 +27,10 @@ export function ort2geo(ort) {
 				return response.json();
 			})
 			.then(function (json) {
-
+				console.log(json)
+				if(json[0] == undefined){
+					return undefined;
+				}
 				var lat = json[0].lat;
 				var lng = json[0].lon;
 
