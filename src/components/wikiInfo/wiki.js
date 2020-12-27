@@ -63,13 +63,14 @@ export default class Wiki {
                                                 
                                                 var content = json.query.pages[pageID].extract;
                                                 
-                                                // console.log("Title: " + pageTitle);
-                                                // console.log("Subtitle: " + subtitle);
-                                                // console.log("Content: " + content);
+                                                 console.log("Title: " + pageTitle);
+                                                console.log("Subtitle: " + subtitle);
+                                                 console.log("Content: " + content);
                                                 // Write results to state
 
-                                                //Crop to 2000 letters
-                                                if(content.length > MAX_LENGTH){
+                                                //Crop to 2000 lettersnom start
+
+                                               if(content.length > MAX_LENGTH){
                                                     content = content.substring(0,MAX_LENGTH);
                                                     if(content[MAX_LENGTH-1] != '.'){
                                                         var index = content.lastIndexOf('.');
