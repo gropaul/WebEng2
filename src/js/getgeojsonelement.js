@@ -6,17 +6,11 @@ var adressDetailLevel0 = ["emergency", "historic", "military", "natural", "landu
                 "aerialway", "boundary", "amenity", "aeroway", "club", "craft", "leisure", "office",
                 "mountain_pass", "shop", "tourism", "bridge", "tunnel", "waterway", "house_name"];
 
-var adressDetailLevel1 = ["city_block", "residental", "farm", "farmyard", "industrial", "commercial", "retail"];
+var adressDetailLevel1 = ["municipality", "city", "town", "village"];
 
-var adressDetailLevel2 = ["hamlet", "croft", "isolated_dwelling"];
+var adressDetailLevel2 = ["region", "state", "state_district", "county"];
 
-var adressDetailLevel3 = ["city_district", "district", "borough", "suburb", "subdivision"];
-
-var adressDetailLevel4 = ["municipality", "city", "town", "village"];
-
-var adressDetailLevel5 = ["region", "state", "state_district", "county"];
-
-var adressDetailLevel6 = ["continent", "country"];
+var adressDetailLevel3 = ["continent", "country"];
 
 var locationDataSpotted = false; 
 
@@ -70,48 +64,6 @@ export function getGeoJsonElement(locationData){
         for(let i in adressDetailLevel3){
             if(locationData[adressDetailLevel3[i]]){
                 specificLocationData = locationData[adressDetailLevel3[i]];
-                locationDataSpotted = true;
-                break;
-            }
-        }
-    }
-
-    // Check, if a element has been found yet, if not,
-    // check if the json element contains one of the detail level 4 elements
-    // if so, break out of the loop, set locationDataSpotted = true, to signal
-    // the other loops, they aren't neccessary anymore
-    if(locationDataSpotted === false){
-        for(let i in adressDetailLevel4){
-            if(locationData[adressDetailLevel4[i]]){
-                specificLocationData = locationData[adressDetailLevel4[i]];
-                locationDataSpotted = true;
-                break;
-            }
-        }
-    }
-
-    // Check, if a element has been found yet, if not,
-    // check if the json element contains one of the detail level 5 elements
-    // if so, break out of the loop, set locationDataSpotted = true, to signal
-    // the other loops, they aren't neccessary anymore
-    if(locationDataSpotted === false){
-        for(let i in adressDetailLevel5){
-            if(locationData[adressDetailLevel5[i]]){
-                specificLocationData = locationData[adressDetailLevel5[i]];
-                locationDataSpotted = true;
-                break;
-            }
-        }
-    }
-
-    // Check, if a element has been found yet, if not,
-    // check if the json element contains one of the detail level 6 elements
-    // if so, break out of the loop, set locationDataSpotted = true, to signal
-    // the other loops, they aren't neccessary anymore
-    if(locationDataSpotted === false){
-        for(let i in adressDetailLevel6){
-            if(locationData[adressDetailLevel6[i]]){
-                specificLocationData = locationData[adressDetailLevel6[i]];
                 locationDataSpotted = true;
                 break;
             }
