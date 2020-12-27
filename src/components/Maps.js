@@ -3,7 +3,7 @@ import { MapContainer, TileLayer, Marker, Popup, useMapEvent } from 'react-leafl
 import "../css/map.css";
 import Leaflet, { popup, polyline } from 'leaflet';
 import Wiki from './wikiInfo/wiki';
-import Weg from './weg.js';
+import Weg from './Weg.js';
 import ReactDOMServer from "react-dom/server";
 import {get_location} from '../js/geo2location.js';
 import {ort2geo} from '../js/location2geo.js';
@@ -79,7 +79,7 @@ var popupProps = {
   Defining the needed functions
 */
 
-// Function which is called by the "markerButtons", 
+// Function which is called by the "markerButtons",
 // its purpose is to switch the setStartPoint boolean value
 // If the boolean value is true, its set false and the Buttons text will switch to "Endpoint"
 // The button will always display the active Marker
@@ -105,7 +105,7 @@ function MapMarker(props) {
   map = useMapEvent('click', (e) => {
 
     // Check if the Startpoint should be set, or the Endpoint
-    // If "setStartPoint" value is true, the Startpoint can be set, 
+    // If "setStartPoint" value is true, the Startpoint can be set,
     // if its false, the Endpoint can be set
     if(setStartPoint){
 
@@ -119,7 +119,7 @@ function MapMarker(props) {
       longitudeStart = e.latlng["lng"];
 
       // Create a Marker with Leaflet (=Leaflet) with the saved latitude and longitude
-      // and the global options for the Startpoint Marker 
+      // and the global options for the Startpoint Marker
       layerStart = Leaflet.marker([latitudeStart, longitudeStart], markerOptionsStart).addTo(map);
 
       // Add a popup to the marker
@@ -138,7 +138,7 @@ function MapMarker(props) {
         ]);
       }
 
-      // After the first Startpoint is set, the setFirstStartPoint value shall be false forever 
+      // After the first Startpoint is set, the setFirstStartPoint value shall be false forever
       // (at least, as long as the Website is not refreshed)
       // Also the setStartPoint value is set false, to switch to the Endpoint
       // As long as the markersButton is not clicked, the next if-Loop will end up
@@ -173,16 +173,16 @@ function MapMarker(props) {
             }
 
             // Create a Marker with Leaflet (=Leaflet) with the saved latitude and longitude
-            // and the global options for the Endpoint Marker 
+            // and the global options for the Endpoint Marker
             layerEnd = Leaflet.marker([latitudeEnd, longitudeEnd], markerOptionsEnd).addTo(map);
 
             var locationName = getGeoJsonElement(locationdata);
 
             if (props.endtext){
-  
+
               var wiki = new Wiki()
               var popup = Leaflet.popup(popupProps);
-  
+
               wiki.fetchWikipedia(locationName).then(()=>{
                 popup.setContent(ReactDOMServer.renderToString(wiki.get_html()));
                 // Place Popup over the End Marker everytime it is set
@@ -204,7 +204,7 @@ function MapMarker(props) {
               // Add the layer to the constant map
               layerEnd.addTo(map);
 
-              // After the first Endpoint is set, the setFirstEndPoint value shall be false forever 
+              // After the first Endpoint is set, the setFirstEndPoint value shall be false forever
               // (at least, as long as the Website is not refreshed)
               // Also the setStartPoint value is set true, to switch to the Startpoint
               // As long as the markersButton is not clicked, the next if-Loop will end up
@@ -215,13 +215,13 @@ function MapMarker(props) {
         });
     }
   });
-  
+
   if(setFirstStartPoint){
     // This part is called on the initialization of the map
     // It fetches the users location via navigator and sets the Maps center
     // to this location
     navigator.geolocation.getCurrentPosition(function(position) {
-      
+
       // Save Startpoint Coordinates
       latitudeStart = position.coords.latitude;
       longitudeStart = position.coords.longitude;
@@ -266,7 +266,7 @@ export function setEndInputMarker(endInput){
         }
 
         // Create a Marker with Leaflet (=Leaflet) with the saved latitude and longitude
-        // and the global options for the Endpoint Marker 
+        // and the global options for the Endpoint Marker
         layerEnd = Leaflet.marker([latitudeEnd, longitudeEnd], markerOptionsEnd).addTo(map);
 
         var locationName = getGeoJsonElement(locationdata);
@@ -295,7 +295,7 @@ export function setEndInputMarker(endInput){
           // Add the layer to the constant map
           layerEnd.addTo(map);
 
-          // After the first Endpoint is set, the setFirstEndPoint value shall be false forever 
+          // After the first Endpoint is set, the setFirstEndPoint value shall be false forever
           // (at least, as long as the Website is not refreshed)
           // Also the setStartPoint value is set true, to switch to the Startpoint
           // As long as the markersButton is not clicked, the next if-Loop will end up
@@ -308,7 +308,7 @@ export function setEndInputMarker(endInput){
 
 /*
   This class contains the complete HTML-Site of this Component
-  It contains the Map as a MapContainer on the left-hand side on the Website and 
+  It contains the Map as a MapContainer on the left-hand side on the Website and
   the button on the right-hand side
   The MapContainer contains a TileLayer, which is the base for the Leaflet Map,
   and the "Mapmarker" function as a HTML-Element
@@ -338,7 +338,7 @@ class Maps extends React.Component {
                 Active:<br></br>
                 <button id="buttonMarker" className="markerButtons" onClick={setMarkerStart}>Endpoint</button>
               </div>
-            
+
             <MapContainer id="map" center={[50.0, 9.0]} zoom={13} scrollWheelZoom={true} minZoom={3}>
               <MapMarker starttext={this.state.startPopupText} endtext={this.state.endPopupText}></MapMarker>
               <TileLayer
@@ -346,7 +346,7 @@ class Maps extends React.Component {
                   url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png">
               </TileLayer>
             </MapContainer>
-            
+
             </div>
         );
     }
