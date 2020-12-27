@@ -1,4 +1,5 @@
 import {Card,CardHeader,CardContent,Preloader} from 'framework7-react';
+import { divIcon } from 'leaflet';
 import React from 'react';
 import './wiki.css'
 export default class Wiki {
@@ -18,12 +19,30 @@ export default class Wiki {
             dataLoaded: "error"
         }
     }
+	
+	doesSiteHaveCategory(pageID, categorySearch) {
+		url = "https://de.wikipedia.org/w/api.php?action=query&generator=categories&prop=categories&redirects=1&pageids=" + pageID + "&origin=*&format=json";
+		response = fetch(url);
+		response = response.json();
+		var payload = response.query;
+		var pages = payload.pages;
+		for (var entryKey in pages) {
+			var page = pages[entryKey]
+			var title = page.pageid;
+			if (title.toLowerCase().includes(categorySearch.toLowerCase())) {
+				return true;
+			}
+		}
+		return false;
+	}
 
     fetchWikipedia(locationName) {
 		// Prepare String (Exchange spaces with '%20' and so on...)
 		var locationNamePrepared = locationName.replace(' ', '%20');
 		// Enter "Loading" Information in state
-        const MAX_LENGTH = 2000;
+
+    const MAX_LENGTH = 2000;
+
 		// Fetch Wikipedia API
 		// Step 1: Get title and page URL
 		var responseStatus = 200;
@@ -40,12 +59,14 @@ export default class Wiki {
                             if (typeof json.query.search === 'undefined' || json.query.search.length <= 0) {
                                 this.displayError()
                                 resolve();
-                            }
+                            }						
+							
                             //Ok, there are results in the array, so we actually found something
+							var resultIndex = 0;
                             var pageID = json.query.search[0].pageid;
-                            
+							
                             var pageTitle = json.query.search[0].title;
-                            
+                        
                             var subtitle = json.query.search[0].snippet;
     
                             //Clean subtitle from html tags
@@ -60,17 +81,16 @@ export default class Wiki {
                                     response.json().then(json => {
                                         switch (responseStatus) {
                                             case 200:
-                                                
                                                 var content = json.query.pages[pageID].extract;
-                                                
-                                                 console.log("Title: " + pageTitle);
-                                                console.log("Subtitle: " + subtitle);
-                                                 console.log("Content: " + content);
+
+                                                // console.log("Title: " + pageTitle);
+                                                // console.log("Subtitle: " + subtitle);
+                                                // console.log("Content: " + content);
                                                 // Write results to state
 
-                                                //Crop to 2000 lettersnom start
-
-                                               if(content.length > MAX_LENGTH){
+                                            
+                                                //Crop to 2000 letters
+                                                if(content.length > MAX_LENGTH){
                                                     content = content.substring(0,MAX_LENGTH);
                                                     if(content[MAX_LENGTH-1] != '.'){
                                                         var index = content.lastIndexOf('.');
@@ -78,6 +98,7 @@ export default class Wiki {
                                                     }
                                                 }
                                                 console.log("Pagetitle laoding");
+
                                                 this.state = 
                                                     {
                                                         dataLoaded: "success",
@@ -86,7 +107,7 @@ export default class Wiki {
                                                         content: content,
                                                         page_url: "https://de.wikipedia.org/wiki/"+pageTitle
                                                     }
-                                                
+
                                                 resolve("Success");
                                                 break;
                                                 
@@ -146,9 +167,9 @@ export default class Wiki {
             </div>
         }
         return (
-            <Card>
+            <div>
              {element}
-            </Card>
+            </div>
         )
     }
 }
