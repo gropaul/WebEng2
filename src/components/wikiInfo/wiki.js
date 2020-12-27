@@ -1,4 +1,5 @@
 import {Card,CardHeader,CardContent,Preloader} from 'framework7-react';
+import { divIcon } from 'leaflet';
 import React from 'react';
 import './wiki.css'
 export default class Wiki {
@@ -18,6 +19,22 @@ export default class Wiki {
             dataLoaded: "error"
         }
     }
+	
+	doesSiteHaveCategory(pageID, categorySearch) {
+		url = "https://de.wikipedia.org/w/api.php?action=query&generator=categories&prop=categories&redirects=1&pageids=" + pageID + "&origin=*&format=json";
+		response = fetch(url);
+		response = response.json();
+		var payload = response.query;
+		var pages = payload.pages;
+		for (var entryKey in pages) {
+			var page = pages[entryKey]
+			var title = page.pageid;
+			if (title.toLowerCase().includes(categorySearch.toLowerCase())) {
+				return true;
+			}
+		}
+		return false;
+	}
 
     fetchWikipedia(locationName) {
 		// Prepare String (Exchange spaces with '%20' and so on...)
@@ -42,10 +59,12 @@ export default class Wiki {
                             if (typeof json.query.search === 'undefined' || json.query.search.length <= 0) {
                                 this.displayError()
                                 resolve();
-                            }
+                            }						
+							
                             //Ok, there are results in the array, so we actually found something
+							var resultIndex = 0;
                             var pageID = json.query.search[0].pageid;
-
+							
                             var pageTitle = json.query.search[0].title;
                         
                             var subtitle = json.query.search[0].snippet;
@@ -148,9 +167,9 @@ export default class Wiki {
             </div>
         }
         return (
-            <Card>
+            <div>
              {element}
-            </Card>
+            </div>
         )
     }
 }
