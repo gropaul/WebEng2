@@ -10,9 +10,6 @@ class Weg extends Component {
         super(testWeg);
 
         this.calcRoute = this.calcRoute.bind(this);
-        this.state = {
-            directionSteps: ""
-        }
     }
 
 	//change Lonitude and Latitude, since thew are given back in the wrong order
@@ -50,7 +47,7 @@ class Weg extends Component {
             })
             .catch(function (err) {
                 let response = JSON.stringify(err, null, "\t")
-                console.error(response);
+                //console.error(response);
             });
             //-------------------------------------------------------------------
             // Need more points to calculte a fluent polygon line.
@@ -59,7 +56,12 @@ class Weg extends Component {
         return fetch(url)
             .then(response => response.json())
 			.then((jsonData) => {
+				try{
                 directionCoordinates = jsonData.features[0].geometry.coordinates;
+				}catch{
+					window.alert("Route could not be calculated!");
+					return null;
+				}
 			    this.changeLongLat();
 			    return directionCoordinates;
 			});
