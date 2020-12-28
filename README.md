@@ -12,6 +12,11 @@ Entwickeln Sie eine Web-Applikation die innerhalb eines Location-Based-Service e
 * 🔧 `build-dev` - build web app using development mode (faster build without minification and optimization)
 * 🔧 `build-prod` - build web app for production
 
+## Docker
+* Docker image can be build from main directory: `docker build -t webeng2 .`
+* Exposed container port for the application is 8080
+* HTTPS must be used in order to use the "Current location" feature!!
+
 ## Ansprechpartner
 
 | Rolle                                  | Ansprechpartner           |
