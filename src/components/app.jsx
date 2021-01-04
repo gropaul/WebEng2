@@ -21,6 +21,9 @@ export default class extends React.Component {
       f7params: {
         // App routes
         routes: routes,
+        view: {
+            iosDynamicNavbar: false
+        }
       },
     }
   }
